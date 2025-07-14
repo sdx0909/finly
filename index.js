@@ -6,7 +6,7 @@ const server = http.createServer((req, res) => {
   const { url } = req;
   console.log(url);
   if (url === "/") {
-    res.end("Hello from Node-Server");
+    res.end("Hello World!");
   } else if (url === "/about") {
     res.end("About-Page");
   } else if (url === "/home") {

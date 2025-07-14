@@ -67,3 +67,56 @@ server.listen(3000, () => {
   console.log(`server listening at localhost:3000`);
 });
 ```
+
+## Running the Application
+
+- to run the server, open the terminal and run the javascript file using nodejs as:
+
+```cmd
+node index.js
+```
+
+## Adding Nodemon for development
+
+- if you still use node for running the application, then you have to do the restart every time you make some changes.
+- to make developement fast and more pleasant, let's use Nodemon to run the server instead Node.
+- to use **Nodemon**, You need to install it using **npm** as:
+  
+```cmd
+npm install nodemon --save-dev
+```
+
+- **--save-dev** : used to specify packages that are only needed for development purposes.
+- packages marked as **dev** dependencies won't be installed when you deploy the application to a production environment later.
+- you see the list of *devDependencies* in **index.js** file:
+
+```json
+"devDependencies": {
+    "nodemon": "^3.1.10"
+}
+```
+
+- You will have **package-lock.json** and **node_modules/** folder generated on the project.
+- **package-lock.json** - is used to record the exact version of packages you installed.
+- **node_modules/** folder is where the packages you install using *npm* will be stored.
+- after installing Nodemon, add the *start* and *dev* script on the **package.json**
+  
+```json
+"scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+},
+```
+
+- the script in **package.json** file respond to:
+
+```cmd
+npm run <script-name>
+```
+
+- to run the *dev* script, run the following command:
+  
+```cmd
+npm run dev
+```
