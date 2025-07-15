@@ -120,3 +120,100 @@ npm run <script-name>
 ```cmd
 npm run dev
 ```
+
+## EXPRESS AND MORGAN
+
+- **Express** is a Node.js framework that's popular for its simplicity and minimalist nature.
+- the framework built on top of Node.js module like *http*
+- installing **express** you have to fire the following command:
+  
+```cmd
+npm install express
+```
+
+- Once the package installed write new code in index.js
+
+```js
+// 1: requiring the "express" module
+const express = require("express");
+
+// 2: creating the express-app
+const app = express();
+
+// 3-1: get with /:route request in express-server
+app.get("/", (req, res) => {
+  res.end("Hello from express-server");
+});
+
+// 3-2: get with /contact:route request in express-server
+app.get("/contact", (req, res) => {
+  res.send("The Contact Page");
+});
+
+// 3-3: get with /about:route request in express-server
+app.get("/about", (req, res) => {
+  res.send("The About Page");
+});
+
+// 3-4: get with *(any) :route request in express-server
+app.get("/{*any}", (req, res) => {
+    res.status(404).send("Not Found");
+});
+
+// 4: listening the express-server at PORT:3000
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`server running on http://localhost:${PORT}`);
+});
+
+```
+
+- here the wild-card route `*` is not used because it gives error so we used `/{*any}` route to match any invalid url.
+- **Note :** this route must be *last route of the valid routes* means you have to define it at the **bottom of your routes**.
+  
+### Adding Morgan for Logging
+
+- instead of logging the URL manually, let's use Morgan to create a detailed log instead.
+- Morgan is a library that you can **used to report detailed logs for you Node.js application.**
+- installing as:
+  
+```cmd
+npm install morgan
+```
+  
+- after installing you need to import it and use it in `index.js` file as:
+  
+```js
+// 01: requiring the "express" module
+const express = require("express");
+
+// 02: requiring the "morgan" module
+const morgan = require("morgan");
+
+// 03: creating the express-app
+const app = express();
+
+// 04: use the "morgan" with "dev" format
+app.use(morgan("dev"));
+
+// ... routes
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`server running on http://localhost:${PORT}`);
+});
+```
+
+- the `app.use()` method is used to register a **middleware** function so that it will be executed on each request.
+- here, we call the `morgan()` function and pass the format as `dev`.
+- there are other formats such as `tiny` and `common` but `dev` is the best for development.
+- you can see logs created by morgan as:
+  
+```cmd
+GET / 200 2.655 ms - -
+GET /about 304 5.618 ms - -
+GET /contact 304 1.287 ms - -
+GET /new 404 2.083 ms - 9
+```
+
+- in above `morgan` logs the `method`, `URL-route`, `status-code` and amount of `time` required to send a response in miliseconds.

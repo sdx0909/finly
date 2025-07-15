@@ -1,23 +1,37 @@
-// requiring the 'http' module
-const http = require("http");
+// 1: requiring the "express" module
+const express = require("express");
 
-// creating the node-server
-const server = http.createServer((req, res) => {
-  const { url } = req;
-  console.log(url);
-  if (url === "/") {
-    res.end("Hello World!");
-  } else if (url === "/about") {
-    res.end("About-Page");
-  } else if (url === "/home") {
-    res.end("Home-Page");
-  } else {
-    res.writeHead(404);
-    res.end("Page Not Found");
-  }
+// 01: requiring the "morgan" module
+const morgan = require("morgan");
+
+// 2: creating the express-app
+const app = express();
+
+// 02: use the "morgan" with "dev" dependency
+app.use(morgan("dev"));
+
+// 3-1: get with /:route request in express-server
+app.get("/", (req, res) => {
+  res.end("Hello from express-server");
 });
 
-// listening the server on port:3000
-server.listen(3000, () => {
-  console.log(`server listening at localhost:3000`);
+// 3-2: get with /contact:route request in express-server
+app.get("/contact", (req, res) => {
+  res.send("The Contact Page");
+});
+
+// 3-3: get with /about:route request in express-server
+app.get("/about", (req, res) => {
+  res.send("The About Page");
+});
+
+// 3-4: get with *(any) :route request in express-server
+app.get("/{*any}", (req, res) => {
+  res.status(404).send("Not Found");
+});
+
+// 4: listening the express-server at PORT:3000
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`server running on http://localhost:${PORT}`);
 });
