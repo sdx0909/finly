@@ -217,3 +217,74 @@ GET /new 404 2.083 ms - 9
 ```
 
 - in above `morgan` logs the `method`, `URL-route`, `status-code` and amount of `time` required to send a response in miliseconds.
+
+## USING EJS TEMPLATING ENGINES FOR VIEWS
+
+- the templating engines used to create and send the dynamic HTML response instead of sending back static HTML pages.
+- there are many templating engines that are compatible with `express` such as : `Pug`, `Handlebars` and `Ejs`.
+- these templating engines have different syntaxes, but they all serve the same purpose: ***to create HTML output from the provided data***.
+- we are using `EJS` (Embedded JavaScript) because it uses the plain JavaScript.
+
+### Adding EJS to Express
+
+- installing the `EJS` package as:
+  
+```cmd
+npm install ejs
+```
+
+- next, adding the configurations of `ejs` template engine files in `index.js` file and set the `view` engine for `express` as:
+
+```js
+const app = express();
+
+// configurations for "ejs" template files
+app.set("views", "./views");
+app.set("view engine", "ejs");
+```
+
+- Next, Create the `./views` folder in our project and create the `index.ejs` file and write code below:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><%= message %></h1>
+    <p>Response created using EJS Teplating</p>
+</body>
+</html>
+```
+
+- `ejs` enables you to embed the JavaScript by using the `<% %>` tag.
+- inside this tag you can write the JavaScript code such as declaring the variable or adding an `if` statement.
+
+### Rendering EJS Template With Express
+
+- to rendering the `ejs` file, you need to use the `res.rendor()` method provided by `res` object.
+- write new code in `index.js` file as:
+  
+```js
+app.get("/", (req, res) => {
+  res.render("index", { message: "Hello from Express-Server" });
+});
+
+// 3-2: get with /contact:route request in express-server
+app.get("/contact", (req, res) => {
+  res.render("index", { message: "This is Contact Page" });
+});
+
+// 3-3: get with /about:route request in express-server
+app.get("/about", (req, res) => {
+  res.render("index", { message: "This is About Page" });
+});
+
+// 3-4: get with *(any) :route request in express-server
+app.get("/{*any}", (req, res) => {
+  res.render("index", { message: "Page Not Found" });
+});
+```
