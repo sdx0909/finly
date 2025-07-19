@@ -288,3 +288,117 @@ app.get("/{*any}", (req, res) => {
   res.render("index", { message: "Page Not Found" });
 });
 ```
+
+### Reuse EJS Template With Partials
+
+- Inside the `views/` folder, create a folder named `partials`, then create an EJS file named `head.ejs` and add the `<head>` tag in this file:
+
+```html
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head> 
+```
+
+- Now you can reuse this template in any other EJS template by using the `include()` function.
+- Back on the `index.ejs` file, replace the `<head>` tag with the following code:
+
+```html
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+ <!-- body tag... -->
+</html>
+```
+
+- Now whenever you create another EJS template, you can use the `include()` function to reuse a certain part of the template.
+
+## USING TAILWIND AND DAISYUI FOR CSS
+
+### Steps for configuration of Tailwind with Daisyui
+
+1. installing `tailwindcss@3`, `postcss`, `autoprefixer` and `postcss-cli` in `devDependency`.
+
+    ```cmd
+    npm install --save-dev  autoprefixer postcss postcss-cli tailwindcss@3
+    ```
+
+2. also installing the `daisyui` package as
+
+    ```cmd
+    npm install --save-dev daisyui
+    ```
+
+3. once the installation finished you can create the configuration files such are `tailwind.config.js` and `postcss.config.js` and write the respective code in it.
+4. `tailwind.config.js`
+
+   ```js
+    // import daisyui from "daisyui";
+    /** @type {import('tailwindcss').Config} */
+    module.exports = {
+        content: ["./views/**/*.ejs"],
+        theme: {
+            extend: {},
+        },
+        plugins: [require("daisyui")],
+    };
+   ```
+
+5. `postcss.config.js`
+
+   ```js
+    module.exports = {
+        plugins: {
+            tailwindcss: {},
+            autoprefixer: {},
+        },
+    };
+   ```
+
+6. create the `public>styles` folder structure and create the   `tailwind.css` file in it and write the following code.
+7. `tailwind.css`
+
+   ```css
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+   ```
+
+8. finally for compiling the css add the following `scripts` in `package.json` file:
+9. `package.json`
+
+    ```json
+    "scripts": {
+        "start": "node index.js",
+        "dev": "nodemon index.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "devcss": "postcss public/styles/tailwind.css -o public/styles/style.css -w"
+    }
+    ````
+
+10. adding the `tailwind` and `daisyui` classes for better UI.
+11. `index.ejs`
+
+    ```js
+    <!DOCTYPE html>
+    <html lang="en">
+    <%- include('./partials/head.ejs') %>
+    <body>
+        <h1 class="text-emerald-500"><%= message %></h1>
+        <p class="text-emerald-800">Response created using EJS</p>
+        <button class="btn btn-secondary m-2 px-10">Click me!</button>
+    </body>
+    </html> 
+     ```
+
+12. for every changes in styling you need to fire the following command to **compile** the styles at onces:
+
+    ```cmd
+    npm run devcss
+    ```
+
+13. and finally `run` the application as:
+
+    ```cmd
+    npm run dev
+    ```

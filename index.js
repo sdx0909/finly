@@ -14,6 +14,8 @@ app.use(morgan("dev"));
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
+app.use(express.static("./public"));
+
 // 3-1: get with /:route request in express-server
 app.get("/", (req, res) => {
   // res.end("Hello from express-server");\
@@ -43,3 +45,9 @@ const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}`);
 });
+
+// npm install -D  autoprefixer postcss postcss-cli tailwindcss@3
+
+// npm install --save-dev daisyui
+
+// npm run devcss
