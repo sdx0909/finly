@@ -402,3 +402,32 @@ app.get("/{*any}", (req, res) => {
     ```cmd
     npm run dev
     ```
+
+## INTEGRATING MONGOOSE TO EXPRESS
+
+### Connecting to MongoDB Cluster
+
+- first, you need to install `mongoose` and `mongodb` in your application using `npm` as:
+
+    ```cmd
+    npm install mongodb mongoose
+    ```
+
+- Next, create a file `dbConnect.js` in your `lib/` folder and write the following code in it.
+
+```js
+const mongoose = require("mongoose");
+
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!MONGODB_URI) throw new Error("MONGODB_URI is missing");
+try {
+    mongoose.connect(MONGODB_URI, {
+        dbName: "finly-db",
+        bufferCommands: false,
+    });
+    console.log("connected to MongoDb");
+} catch (error) {
+    console.log(error);
+}   
+```

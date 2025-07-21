@@ -828,6 +828,9 @@ video {
 .m-2 {
   margin: 0.5rem;
 }
+.m-4 {
+  margin: 1rem;
+}
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
