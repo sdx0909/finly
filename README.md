@@ -431,3 +431,152 @@ try {
     console.log(error);
 }   
 ```
+
+- in the `MONGODB_URI` you can specify the MongoDB Cluster URI.
+- after copying the connection string from MongoDB URI you can put it into `.env` file as:
+- let's create the `.env` file and add the environment variable for `MONGODB_URI`.
+  
+```env
+MONGODB_URI=<paste-your-connection-string>
+```
+
+- NOTE: you can replace the `<username>` and `<password>`.
+
+### Installing the `dotenv` package to Read Environment variables
+
+- both Node.js and Express won't load the environment variables.
+- installing as:
+  
+```cmd
+npm install dotenv
+```
+
+- once the package is installed, open the `index.js` file and call the `config()` method to load the variables.
+- you can also need to run the code in `dbConnect.js` file using `require()` as follows:
+  
+```js
+require("dotenv").config();
+require("./libs/dbConnect");
+```
+
+## IMPLEMENTING THE MVC PATTERN
+
+### Creating the `User` Model
+
+- for this you have to create a `libs > models` folder-structure then create the file named `user.model.js` inside it.
+- add the below code in it.
+
+```js
+const { Schema, model } = require("mongoose");
+
+const UserSchema = new Schema({
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+});
+
+const User = model("User", UserSchema);
+
+module.exports = User;
+```
+
+### Creating the User-Controller
+
+- after creating the user-model, you need to create the user-controller that will make use of model.
+- in the `root` folder of you poject, create a new folder named `controllers/`, then create a file named `user.controller.js` in it.
+
+```js
+const User = require("../libs/models/user.model");
+
+const createUser = async (req, res) => {
+    await User.create({
+        email: "nathan@mail.com",
+        password: "pass123",
+    });
+
+    res.render("user", { message: "User Created", user: null });
+};
+
+const getUser = async (req, res) => {
+    const user = await User.findOne({ email: "saurabh@mail.com" });
+
+    res.render("user", { message: "User Retrieved", user: user });
+};
+
+const deleteUser = async (req, res) => {
+    await User.findOneAndDelete({ email: "nathan@mail.com" });
+
+    res.render("user", { message: "User Deleted", user: null });
+};
+
+module.exports = {
+    getUser,
+    createUser,
+    deleteUser,
+};
+```
+
+### Creating the User View
+
+- in the `user` controller, you can see that the `res.render()` call requires a view called `user`:
+- inside the `views/` folder, create the file named `user.ejs` and add the code below:
+  
+```js
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+<body>
+    <div class="m-4">
+        <h1 class="text-emerald-500"><%= message %></h1>
+        <% if(user) {%>
+            <p><%=user.email %></p>
+            <p><%=user.password %></p>
+        <% } %>
+    </div>
+</body>
+</html>
+```
+
+### Creating the User Route
+
+- Now we have the `model`, the `view` and the `controller` for the user data.
+- we need to create `routes` from which we execute the `controller` functions.
+- back to root folder and create a new file in `routes/` folder named `user.route.js` with following code:
+  
+```js
+const express = require("express");
+const router = express.Router();
+
+const {
+    getUser,
+    createUser,
+    deleteUser,
+} = require("../controllers/user.controller");
+
+router.get("/", getUser);
+router.get("/create", createUser);
+router.get("/delete", deleteUser);
+
+module.exports = router;
+```
+
+- now can configure user-routes in `index.js` file as:
+  
+```js
+const userRouter = require("./routes/user.route");
+
+const app = express();
+
+// ...
+
+app.get("/", (req, res) => {
+    res.render("index", { message: "Hello From Node.js" });
+});
+
+app.use("/users", userRouter);
+```
+
+- Notice that here we use the `app.use()` method instead of `app.get()` because we want to let the `userRouter` object handle the requests coming to the `/users` route.
+- now you can run the following routes to create, get and delete the user from MongoDB Atlas:
+    1. `/users/create`
+    2. `/users/get`
+    3. `/users/delete`
