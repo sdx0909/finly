@@ -7,7 +7,7 @@ if (!MONGODB_URI) throw new Error("MONGODB_URI is missing");
 try {
 	mongoose.connect(MONGODB_URI, {
 		dbName: "finly-db",
-		bufferCommands: false,
+		bufferCommands: true,
 	});
 	console.log("connected to MongoDb");
 } catch (error) {
