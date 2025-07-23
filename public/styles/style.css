@@ -1035,6 +1035,13 @@ video {
     opacity: 1;
   }
 }
+.navbar {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 0.5rem;
+  min-height: 4rem;
+}
 .fixed {
   position: fixed;
 }

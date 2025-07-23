@@ -1152,3 +1152,295 @@ else {
 
 - Now the `signup` page is completed.
   
+## ADDING LOGIN AND LOGOUT FUNCTIONALITY
+
+### Creating the Landing Page
+
+- Inside the `views/` folder, you need to create a `pages/index.ejs` file and write the following code.
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+  <main class="flex min-h-screen flex-col p-4">
+    <div class="flex h-24 shrink-0 items-end rounded-lg bg-green-500 p-4 text-5xl">
+      <div class="flex flex-row items-center text-white">
+        <i class="fa-solid fa-coins pr-4"></i>
+        Finly
+      </div>
+    </div>
+    <div class="mt-4 flex grow flex-col gap-4 md:flex-row">
+      <div class="flex flex-col justify-center gap-6 rounded-lg bg-slate-100 px-6 py-10 md:w-2/5 md:px-10">
+        <h1 class="text-3xl font-medium">Welcome to Finly!</h1>
+        <p class="text-xl text-gray-800">
+          The invoicing software for small business and freelancer.
+          <br>
+          Create professional invoices in an instant with smart invoicing software.
+        </p>
+        <a class="btn btn-primary w-32" href="/login">
+          Log in
+          <i class="ml-auto fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="flex items-center justify-center p-6 md:w-3/5 md:px-20 md:py-8">
+        <img alt="Grow your business with Finly" width="400" height="400" src="https://g.codewithnathan.com/revenue-bro.png" />
+      </div>
+    </div>
+  </main>
+  <%- include('../partials/script') %>
+</body>
+</html>
+```
+
+- the image is also available in the [url]
+- in the `dashboard.route.js` file, get the `info` value from `flash`.
+
+```js
+router.get("/", (req, res) => {
+    res.render("pages/dashboard", {
+        title: "Dashboard",
+        info: req.flash("info")[0],
+    });
+});
+```
+
+### Updating the Dashboard Page
+
+- create a new partial template page named `navbar.ejs` to create a navigation bar for our application.
+- write following code as:
+
+```html
+<div class="fixed w-56 bg-white shadow-md h-screen flex flex-col">
+  <div class="h-40 p-4 bg-green-500 text-white text-4xl flex justify-start items-end">
+    <i aria-hidden="true" class="fa-solid fa-coins pr-4"></i>
+    Finly
+  </div>
+  <div class="flex grow flex-col py-4 justify-between">
+    <ul>
+      <li>
+        <a href="/dashboard" class="block p-4 hover:bg-sky-100">
+          <i aria-hidden="true" class="fa-solid fa-home pr-2"></i>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="/dashboard/customers" class="block p-4 hover:bg-sky-100">
+          <i aria-hidden="true" class="fa-solid fa-users pr-2"></i>
+          Customers
+        </a>
+      </li>
+      <li>
+        <a href="/dashboard/invoices" class="block p-4 hover:bg-sky-100">
+          <i aria-hidden="true" class="fa-solid fa-copy pr-2"></i>
+          Invoices
+        </a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <a href="/logout" class="block p-4 hover:bg-sky-100">
+          <i aria-hidden="true" class="fa-solid fa-power-off pr-2"></i>
+          Sign out
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+```
+
+- Next, add this navigation bar to the `dashboard` page by updating the `pages/dashboard.ejs` file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body class="bg-gray-100">
+  <div class="flex h-screen overflow-hidden">
+    <!-- including navbar -->
+    <%- include('../partials/navbar') %>
+    <div class="ml-56 flex-grow p-10 overflow-y-auto">
+      <h1 class=" mb-4 text-xl md:text-2xl">Dashboard</h1>
+    </div>
+  </div>
+<%- include('../partials/script') %>
+</body>
+</html>
+```
+
+### Adding Login Page to Views
+
+- to create the login page, you need to add another view file on the `pages/` folder.
+- create a file named `login.ejs` and add the following code:
+  
+```html
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+  <main class="flex mx-auto w-full max-w-[400px] flex-col space-y-2.5 p-4 mt-12">
+    <div class="flex h-24 w-full items-end rounded-lg bg-green-500 p-3">
+      <div class="flex flex-row items-center text-white">
+        <i aria-hidden="true" class="fa-3x fa-solid fa-coins pr-4">
+        </i>
+        <p class="text-[44px]">Finly</p>
+      </div>
+    </div>
+    <form action="/login" method="post" class="space-y-3">
+      <div class="flex flex-col rounded-lg bg-slate-100 p-6 gap-4">
+        <h1 class="mb-3 text-2xl">Enter Your Account</h1>
+        <%- include('../partials/formErrors') %>
+        <label class="input input-bordered flex items-center gap-2">
+          <i class="opacity-70 fa-solid fa-envelope">
+          </i>
+          <input name='email' type="email" class="grow" placeholder="Email" value="<%= user?.email || '' %>" />
+        </label>
+        <label class="input input-bordered flex items-center gap-2">
+          <i class="opacity-70 fa-solid fa-key">
+          </i>
+          <input name='password' type="password" class="grow" placeholder="Password" value="<%= user?.password || '' %>" />
+        </label>
+      </div>
+      <button class="btn btn-primary w-full">
+        Log in
+        <i aria-hidden="true" class="ml-auto fa-solid fa-arrow-right fa-lg">
+        </i>
+      </button>
+    </form>
+    <span>
+      Don't have an account? <a href='/signup' class="link link-primary link-hover">Sign Up</a>
+    </span>
+  </main>
+  <%- include('../partials/script') %>
+</body>
+</html>
+```
+
+- the next step is to write the controller functions.
+
+### Adding Login Function to User Controller
+
+- in the `user.controller.js` file, add the `validationLogin` array to validate the login form as:
+  
+```js
+const validateLogin = [
+    body("email", "Email must not be empty").notEmpty(),
+    body("password", "Password must not be empty").notEmpty(),
+];
+```
+
+- Next, add the `login()` function as:
+
+```js
+const login = async (req, res) => {
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+        const errors = validationErrors.array();
+        req.flash("errors", errors);
+        req.flash("data", req.body);
+        return res.redirect("/login");
+    }
+
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (user) {
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (passwordMatch) {
+            req.session.userId = user._id;
+            req.flash("info", {
+                message: "Login Successful",
+                type: "success",
+            });
+            res.redirect("/dashboard");
+        } else {
+            req.flash("info", {
+                message: "Wrong Password",
+                type: "error",
+            });
+            req.flash("data", req.body);
+            res.redirect("/login");
+        }
+    } else {
+        req.flash("info", {
+            message: "Email is not registered",
+            type: "error",
+        });
+        req.flash("data", req.body);
+        res.redirect("/login");
+    }
+};
+```
+
+### Adding Logout Function
+
+- Next, add the `logout()` function just below the `login()` function as:
+  
+```js
+const logout = (req, res) => {
+    req.session.userId = null;
+    req.flash("info", {
+        message: "Logout Successful",
+        type: "success",
+    });
+    res.redirect("/");
+};
+```
+
+- Now we need to `export` these two new functions and validation array as:
+
+```js
+module.exports = {
+    signup,
+    validateSignup,
+    login,
+    validateLogin,
+    logout,
+};
+```
+
+### Updating User Routes
+
+- Next step is to update the user routes.
+- First, update the `imports` as shown below:
+  
+```js
+const {
+    validateSignup,
+    signup,
+    login,
+    validateLogin,
+    logout,
+} = require("../controllers/user.controller");
+```
+
+- Then we need to add a `GET` and `POST` routes for the `/login` URL.
+- and a `GET` route for the `/logout` URL.
+
+```js
+router.get("/login", (req, res) => {
+    res.render("pages/login", {
+        title: "Sign in",
+        user: req.flash("data")[0],
+        info: req.flash("info")[0],
+        errors: req.flash("errors"),
+    });
+});
+
+router.post("/login", validateLogin, login);
+
+router.get("/logout", logout);
+```
+
+- also update the landing page to get the `info` message:
+  
+```js
+router.get("/", (req, res) => {
+    res.render("pages/index", {
+        title: "Finly",
+        info: req.flash("info")[0],
+    });
+});
+```
+
+- The `login` and `logout` functinality are now finished.
+- You can try to log in by navigating the `/login` URL from browser.
