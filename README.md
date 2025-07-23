@@ -1511,3 +1511,22 @@ const { verifyUser } = require("./libs/middleware");
 
 app.use("/dashboard", verifyUser, dashboardRouter);
 ```
+
+- When unauthenticated user try to access the dashboard page, they will be redirected to the login page.
+
+### Creating Middleware to Protect Login and Sign Up Routes
+
+- Currently users can still access the login and sign up pages even after they are authenticated.
+- to improve the user experience, let's set up a middleware that redirect authenticated users to the dashboard when they are access the login or sign up page.
+- In your `middleware.js` file, create a new middleware named `redirectAuthenticated()` as follows:
+
+```js
+const redirectAuthenticated = (req, res, next) => {
+    if (req.session.userId) return res.redirect("/dashboard");
+};
+
+module.exports = {
+    verifyUser,
+    redirectAuthenticated,
+};
+```
