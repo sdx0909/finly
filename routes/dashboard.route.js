@@ -1,6 +1,6 @@
-const { info } = require("autoprefixer");
 const express = require("express");
 const router = express.Router();
+const customerRouter = require("./customer.route");
 
 router.get("/", (req, res) => {
 	res.render("pages/dashboard", {
@@ -8,5 +8,8 @@ router.get("/", (req, res) => {
 		info: req.flash("info")[0],
 	});
 });
+
+// NESTING ROUTE
+router.use("/customers",customerRouter)
 
 module.exports = router;

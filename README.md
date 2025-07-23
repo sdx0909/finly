@@ -5,9 +5,9 @@
 ## Creating the Project Structure
 
 - creating the folder named as **finly**.
-- after that open the command prompt and goes to *finly* folder.
+- after that open the command prompt and goes to _finly_ folder.
 - now you have to setup the nodejs project by following command:
-  
+
 ```cmd
 npm init -y
 ```
@@ -16,31 +16,31 @@ npm init -y
 
 ```json
 {
-  "name": "finly",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sdx0909/finly.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/sdx0909/finly/issues"
-  },
-  "homepage": "https://github.com/sdx0909/finly#readme"
+ "name": "finly",
+ "version": "1.0.0",
+ "description": "",
+ "main": "index.js",
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1"
+ },
+ "repository": {
+  "type": "git",
+  "url": "git+https://github.com/sdx0909/finly.git"
+ },
+ "keywords": [],
+ "author": "",
+ "license": "ISC",
+ "type": "commonjs",
+ "bugs": {
+  "url": "https://github.com/sdx0909/finly/issues"
+ },
+ "homepage": "https://github.com/sdx0909/finly#readme"
 }
 ```
 
 ## Creating the Simple-Node Server Application
 
-- to create the nodejs server, you need to create a new file named *index.js* file and write code as:
+- to create the nodejs server, you need to create a new file named _index.js_ file and write code as:
 
 ```js
 // requiring the 'http' module
@@ -48,23 +48,23 @@ const http = require("http");
 
 // creating the node-server
 const server = http.createServer((req, res) => {
-  const { url } = req;
-  console.log(url);
-  if (url === "/") {
-    res.end("Hello from Node-Server");
-  } else if (url === "/about") {
-    res.end("About-Page");
-  } else if (url === "/home") {
-    res.end("Home-Page");
-  } else {
-    res.writeHead(404);
-    res.end("Page Not Found");
-  }
+ const { url } = req;
+ console.log(url);
+ if (url === "/") {
+  res.end("Hello from Node-Server");
+ } else if (url === "/about") {
+  res.end("About-Page");
+ } else if (url === "/home") {
+  res.end("Home-Page");
+ } else {
+  res.writeHead(404);
+  res.end("Page Not Found");
+ }
 });
 
 // listening the server on port:3000
 server.listen(3000, () => {
-  console.log(`server listening at localhost:3000`);
+ console.log(`server listening at localhost:3000`);
 });
 ```
 
@@ -81,14 +81,14 @@ node index.js
 - if you still use node for running the application, then you have to do the restart every time you make some changes.
 - to make developement fast and more pleasant, let's use Nodemon to run the server instead Node.
 - to use **Nodemon**, You need to install it using **npm** as:
-  
+
 ```cmd
 npm install nodemon --save-dev
 ```
 
 - **--save-dev** : used to specify packages that are only needed for development purposes.
 - packages marked as **dev** dependencies won't be installed when you deploy the application to a production environment later.
-- you see the list of *devDependencies* in **index.js** file:
+- you see the list of _devDependencies_ in **index.js** file:
 
 ```json
 "devDependencies": {
@@ -98,9 +98,9 @@ npm install nodemon --save-dev
 
 - You will have **package-lock.json** and **node_modules/** folder generated on the project.
 - **package-lock.json** - is used to record the exact version of packages you installed.
-- **node_modules/** folder is where the packages you install using *npm* will be stored.
-- after installing Nodemon, add the *start* and *dev* script on the **package.json**
-  
+- **node_modules/** folder is where the packages you install using _npm_ will be stored.
+- after installing Nodemon, add the _start_ and _dev_ script on the **package.json**
+
 ```json
 "scripts": {
     "start": "node index.js",
@@ -115,8 +115,8 @@ npm install nodemon --save-dev
 npm run <script-name>
 ```
 
-- to run the *dev* script, run the following command:
-  
+- to run the _dev_ script, run the following command:
+
 ```cmd
 npm run dev
 ```
@@ -124,9 +124,9 @@ npm run dev
 ## EXPRESS AND MORGAN
 
 - **Express** is a Node.js framework that's popular for its simplicity and minimalist nature.
-- the framework built on top of Node.js module like *http*
+- the framework built on top of Node.js module like _http_
 - installing **express** you have to fire the following command:
-  
+
 ```cmd
 npm install express
 ```
@@ -142,47 +142,46 @@ const app = express();
 
 // 3-1: get with /:route request in express-server
 app.get("/", (req, res) => {
-  res.end("Hello from express-server");
+ res.end("Hello from express-server");
 });
 
 // 3-2: get with /contact:route request in express-server
 app.get("/contact", (req, res) => {
-  res.send("The Contact Page");
+ res.send("The Contact Page");
 });
 
 // 3-3: get with /about:route request in express-server
 app.get("/about", (req, res) => {
-  res.send("The About Page");
+ res.send("The About Page");
 });
 
 // 3-4: get with *(any) :route request in express-server
 app.get("/{*any}", (req, res) => {
-    res.status(404).send("Not Found");
+ res.status(404).send("Not Found");
 });
 
 // 4: listening the express-server at PORT:3000
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`server running on http://localhost:${PORT}`);
+ console.log(`server running on http://localhost:${PORT}`);
 });
-
 ```
 
 - here the wild-card route `*` is not used because it gives error so we used `/{*any}` route to match any invalid url.
-- **Note :** this route must be *last route of the valid routes* means you have to define it at the **bottom of your routes**.
-  
+- **Note :** this route must be _last route of the valid routes_ means you have to define it at the **bottom of your routes**.
+
 ### Adding Morgan for Logging
 
 - instead of logging the URL manually, let's use Morgan to create a detailed log instead.
 - Morgan is a library that you can **used to report detailed logs for you Node.js application.**
 - installing as:
-  
+
 ```cmd
 npm install morgan
 ```
-  
+
 - after installing you need to import it and use it in `index.js` file as:
-  
+
 ```js
 // 01: requiring the "express" module
 const express = require("express");
@@ -200,7 +199,7 @@ app.use(morgan("dev"));
 
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`server running on http://localhost:${PORT}`);
+ console.log(`server running on http://localhost:${PORT}`);
 });
 ```
 
@@ -208,7 +207,7 @@ app.listen(PORT, () => {
 - here, we call the `morgan()` function and pass the format as `dev`.
 - there are other formats such as `tiny` and `common` but `dev` is the best for development.
 - you can see logs created by morgan as:
-  
+
 ```cmd
 GET / 200 2.655 ms - -
 GET /about 304 5.618 ms - -
@@ -222,13 +221,13 @@ GET /new 404 2.083 ms - 9
 
 - the templating engines used to create and send the dynamic HTML response instead of sending back static HTML pages.
 - there are many templating engines that are compatible with `express` such as : `Pug`, `Handlebars` and `Ejs`.
-- these templating engines have different syntaxes, but they all serve the same purpose: ***to create HTML output from the provided data***.
+- these templating engines have different syntaxes, but they all serve the same purpose: **_to create HTML output from the provided data_**.
 - we are using `EJS` (Embedded JavaScript) because it uses the plain JavaScript.
 
 ### Adding EJS to Express
 
 - installing the `EJS` package as:
-  
+
 ```cmd
 npm install ejs
 ```
@@ -248,15 +247,15 @@ app.set("view engine", "ejs");
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1><%= message %></h1>
-    <p>Response created using EJS Teplating</p>
-</body>
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+ </head>
+ <body>
+  <h1><%= message %></h1>
+  <p>Response created using EJS Teplating</p>
+ </body>
 </html>
 ```
 
@@ -267,25 +266,25 @@ app.set("view engine", "ejs");
 
 - to rendering the `ejs` file, you need to use the `res.rendor()` method provided by `res` object.
 - write new code in `index.js` file as:
-  
+
 ```js
 app.get("/", (req, res) => {
-  res.render("index", { message: "Hello from Express-Server" });
+ res.render("index", { message: "Hello from Express-Server" });
 });
 
 // 3-2: get with /contact:route request in express-server
 app.get("/contact", (req, res) => {
-  res.render("index", { message: "This is Contact Page" });
+ res.render("index", { message: "This is Contact Page" });
 });
 
 // 3-3: get with /about:route request in express-server
 app.get("/about", (req, res) => {
-  res.render("index", { message: "This is About Page" });
+ res.render("index", { message: "This is About Page" });
 });
 
 // 3-4: get with *(any) :route request in express-server
 app.get("/{*any}", (req, res) => {
-  res.render("index", { message: "Page Not Found" });
+ res.render("index", { message: "Page Not Found" });
 });
 ```
 
@@ -295,10 +294,10 @@ app.get("/{*any}", (req, res) => {
 
 ```html
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head> 
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Document</title>
+</head>
 ```
 
 - Now you can reuse this template in any other EJS template by using the `include()` function.
@@ -306,7 +305,7 @@ app.get("/{*any}", (req, res) => {
 
 ```html
 <html lang="en">
-<%- include('./partials/head.ejs') %>
+ <%- include('./partials/head.ejs') %>
  <!-- body tag... -->
 </html>
 ```
@@ -319,62 +318,62 @@ app.get("/{*any}", (req, res) => {
 
 1. installing `tailwindcss@3`, `postcss`, `autoprefixer` and `postcss-cli` in `devDependency`.
 
-    ```cmd
-    npm install --save-dev  autoprefixer postcss postcss-cli tailwindcss@3
-    ```
+   ```cmd
+   npm install --save-dev  autoprefixer postcss postcss-cli tailwindcss@3
+   ```
 
 2. also installing the `daisyui` package as
 
-    ```cmd
-    npm install --save-dev daisyui
-    ```
+   ```cmd
+   npm install --save-dev daisyui
+   ```
 
 3. once the installation finished you can create the configuration files such are `tailwind.config.js` and `postcss.config.js` and write the respective code in it.
 4. `tailwind.config.js`
 
    ```js
-    // import daisyui from "daisyui";
-    /** @type {import('tailwindcss').Config} */
-    module.exports = {
-        content: ["./views/**/*.ejs"],
-        theme: {
-            extend: {},
-        },
-        plugins: [require("daisyui")],
-    };
+   // import daisyui from "daisyui";
+   /** @type {import('tailwindcss').Config} */
+   module.exports = {
+    content: ["./views/**/*.ejs"],
+    theme: {
+     extend: {},
+    },
+    plugins: [require("daisyui")],
+   };
    ```
 
 5. `postcss.config.js`
 
    ```js
-    module.exports = {
-        plugins: {
-            tailwindcss: {},
-            autoprefixer: {},
-        },
-    };
+   module.exports = {
+    plugins: {
+     tailwindcss: {},
+     autoprefixer: {},
+    },
+   };
    ```
 
-6. create the `public>styles` folder structure and create the   `tailwind.css` file in it and write the following code.
+6. create the `public>styles` folder structure and create the `tailwind.css` file in it and write the following code.
 7. `tailwind.css`
 
    ```css
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
    ```
 
 8. finally for compiling the css add the following `scripts` in `package.json` file:
 9. `package.json`
 
-    ```json
-    "scripts": {
-        "start": "node index.js",
-        "dev": "nodemon index.js",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "devcss": "postcss public/styles/tailwind.css -o public/styles/style.css -w"
-    }
-    ````
+   ```json
+   "scripts": {
+       "start": "node index.js",
+       "dev": "nodemon index.js",
+       "test": "echo \"Error: no test specified\" && exit 1",
+       "devcss": "postcss public/styles/tailwind.css -o public/styles/style.css -w"
+   }
+   ```
 
 10. adding the `tailwind` and `daisyui` classes for better UI.
 11. `index.ejs`
@@ -388,8 +387,8 @@ app.get("/{*any}", (req, res) => {
         <p class="text-emerald-800">Response created using EJS</p>
         <button class="btn btn-secondary m-2 px-10">Click me!</button>
     </body>
-    </html> 
-     ```
+    </html>
+    ```
 
 12. for every changes in styling you need to fire the following command to **compile** the styles at onces:
 
@@ -409,9 +408,9 @@ app.get("/{*any}", (req, res) => {
 
 - first, you need to install `mongoose` and `mongodb` in your application using `npm` as:
 
-    ```cmd
-    npm install mongodb mongoose
-    ```
+  ```cmd
+  npm install mongodb mongoose
+  ```
 
 - Next, create a file `dbConnect.js` in your `lib/` folder and write the following code in it.
 
@@ -422,20 +421,20 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) throw new Error("MONGODB_URI is missing");
 try {
-    mongoose.connect(MONGODB_URI, {
-        dbName: "finly-db",
-        bufferCommands: false,
-    });
-    console.log("connected to MongoDb");
+ mongoose.connect(MONGODB_URI, {
+  dbName: "finly-db",
+  bufferCommands: false,
+ });
+ console.log("connected to MongoDb");
 } catch (error) {
-    console.log(error);
-}   
+ console.log(error);
+}
 ```
 
 - in the `MONGODB_URI` you can specify the MongoDB Cluster URI.
 - after copying the connection string from MongoDB URI you can put it into `.env` file as:
 - let's create the `.env` file and add the environment variable for `MONGODB_URI`.
-  
+
 ```env
 MONGODB_URI=<paste-your-connection-string>
 ```
@@ -446,14 +445,14 @@ MONGODB_URI=<paste-your-connection-string>
 
 - both Node.js and Express won't load the environment variables.
 - installing as:
-  
+
 ```cmd
 npm install dotenv
 ```
 
 - once the package is installed, open the `index.js` file and call the `config()` method to load the variables.
 - you can also need to run the code in `dbConnect.js` file using `require()` as follows:
-  
+
 ```js
 require("dotenv").config();
 require("./libs/dbConnect");
@@ -470,8 +469,8 @@ require("./libs/dbConnect");
 const { Schema, model } = require("mongoose");
 
 const UserSchema = new Schema({
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+ email: { type: String, required: true, unique: true },
+ password: { type: String, required: true },
 });
 
 const User = model("User", UserSchema);
@@ -488,30 +487,30 @@ module.exports = User;
 const User = require("../libs/models/user.model");
 
 const createUser = async (req, res) => {
-    await User.create({
-        email: "nathan@mail.com",
-        password: "pass123",
-    });
+ await User.create({
+  email: "nathan@mail.com",
+  password: "pass123",
+ });
 
-    res.render("user", { message: "User Created", user: null });
+ res.render("user", { message: "User Created", user: null });
 };
 
 const getUser = async (req, res) => {
-    const user = await User.findOne({ email: "saurabh@mail.com" });
+ const user = await User.findOne({ email: "saurabh@mail.com" });
 
-    res.render("user", { message: "User Retrieved", user: user });
+ res.render("user", { message: "User Retrieved", user: user });
 };
 
 const deleteUser = async (req, res) => {
-    await User.findOneAndDelete({ email: "nathan@mail.com" });
+ await User.findOneAndDelete({ email: "nathan@mail.com" });
 
-    res.render("user", { message: "User Deleted", user: null });
+ res.render("user", { message: "User Deleted", user: null });
 };
 
 module.exports = {
-    getUser,
-    createUser,
-    deleteUser,
+ getUser,
+ createUser,
+ deleteUser,
 };
 ```
 
@@ -519,7 +518,7 @@ module.exports = {
 
 - in the `user` controller, you can see that the `res.render()` call requires a view called `user`:
 - inside the `views/` folder, create the file named `user.ejs` and add the code below:
-  
+
 ```js
 <!DOCTYPE html>
 <html lang="en">
@@ -541,15 +540,15 @@ module.exports = {
 - Now we have the `model`, the `view` and the `controller` for the user data.
 - we need to create `routes` from which we execute the `controller` functions.
 - back to root folder and create a new file in `routes/` folder named `user.route.js` with following code:
-  
+
 ```js
 const express = require("express");
 const router = express.Router();
 
 const {
-    getUser,
-    createUser,
-    deleteUser,
+ getUser,
+ createUser,
+ deleteUser,
 } = require("../controllers/user.controller");
 
 router.get("/", getUser);
@@ -560,7 +559,7 @@ module.exports = router;
 ```
 
 - now can configure user-routes in `index.js` file as:
-  
+
 ```js
 const userRouter = require("./routes/user.route");
 
@@ -569,7 +568,7 @@ const app = express();
 // ...
 
 app.get("/", (req, res) => {
-    res.render("index", { message: "Hello From Node.js" });
+ res.render("index", { message: "Hello From Node.js" });
 });
 
 app.use("/users", userRouter);
@@ -577,9 +576,9 @@ app.use("/users", userRouter);
 
 - Notice that here we use the `app.use()` method instead of `app.get()` because we want to let the `userRouter` object handle the requests coming to the `/users` route.
 - now you can run the following routes to create, get and delete the user from MongoDB Atlas:
-    1. `/users/create`
-    2. `/users/get`
-    3. `/users/delete`
+  1. `/users/create`
+  2. `/users/get`
+  3. `/users/delete`
 
 ## DEVELOPING USER AUTHENTICATION
 
@@ -592,43 +591,43 @@ app.use("/users", userRouter);
 ### Implementing Express Session
 
 - for implementing the **session-based** authentication, you need to install the `express-session` package using `npm` as:
-  
+
   ```cmd
   npm install express-session
   ```
 
 - Next, you need to import and use the module in the `index.js` file as:
-  
+
 ```js
 const session = require("express-session");
 
 // ...
 
 app.use(
-    session({
-        secret: process.env.AUTH_SECRET,
-        saveUninitialized: true,
-        resave: false,
-    })
+ session({
+  secret: process.env.AUTH_SECRET,
+  saveUninitialized: true,
+  resave: false,
+ })
 );
 ```
 
 - now we can use the `session` in our application, but let's add the `AUTH_SECRET` variable in our `.env` file first.
-  
+
 ### Creating the `AUTH_SECRET` Variable
 
 - the `AUTH_SECRET` is an alphanumeric string that express uses to sign the session object.
 - you can generate one by using the `openssl` command as:
 
-    ```cmd
-    openssl rand -base64 32
-    ```
+  ```cmd
+  openssl rand -base64 32
+  ```
 
 - this will generate a string that you can use as the value of `AUTH_SECRET` and put it in the `.env` file.
-  
-    ```js
-    AUTH_SECRET=eh22VDra2zPG3GhZxpYgN6Ks1cXFX+lGzxR5qzy009k=
-    ```
+
+  ```js
+  AUTH_SECRET=eh22VDra2zPG3GhZxpYgN6Ks1cXFX+lGzxR5qzy009k=
+  ```
 
 - that will take care of the session signing key.
 
@@ -642,28 +641,28 @@ app.use(
 // ...
 
 router.get("/", (req, res) => {
-    res.render("pages/index", {
-        title: "Finly",
-    });
+ res.render("pages/index", {
+  title: "Finly",
+ });
 });
 
 router.get("/login", (req, res) => {
-    res.render("pages/login", {
-        title: "Sign in",
-    });
+ res.render("pages/login", {
+  title: "Sign in",
+ });
 });
 
 router.get("/signup", (req, res) => {
-    res.render("pages/signup", {
-        title: "Sign up",
-    });
+ res.render("pages/signup", {
+  title: "Sign up",
+ });
 });
 
 module.exports = router;
 ```
 
 - the next is to create the sign up page for the view layer.
-  
+
 ### Creating the Sign-Up page
 
 - create a new folder named `pages/` inside the `views/` folder.
@@ -672,71 +671,78 @@ module.exports = router;
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head') %>
-<body>
-  <main class="flex mx-auto w-full max-w-[460px] flex-col space-y-2.5 p-4 mt-12">
-    <div class="flex h-24 w-full items-end rounded-lg bg-green-500 p-3">
-      <div class="flex flex-row items-center text-white">
-        <i aria-hidden="true" class="fa-3x fa-solid fa-coins pr-4">
-        </i>
-        <p class="text-[44px]">Finly</p>
-      </div>
+ <%- include('../partials/head') %>
+ <body>
+  <main
+   class="flex mx-auto w-full max-w-[460px] flex-col space-y-2.5 p-4 mt-12"
+  >
+   <div class="flex h-24 w-full items-end rounded-lg bg-green-500 p-3">
+    <div class="flex flex-row items-center text-white">
+     <i aria-hidden="true" class="fa-3x fa-solid fa-coins pr-4"> </i>
+     <p class="text-[44px]">Finly</p>
     </div>
-    <!-- adding from-for-signup  -->
-    <span>
-      Already have an account? <a href='/login' class="link link-primary link-hover">Log in</a>
-    </span>
+   </div>
+   <!-- adding from-for-signup  -->
+   <span>
+    Already have an account?
+    <a href="/login" class="link link-primary link-hover">Log in</a>
+   </span>
   </main>
-</body>
+ </body>
 </html>
 ```
 
 - between the `<div>` and `<span>` elements add a form as :
-  
+
 ```html
 <form action="/signup" method="post" class="space-y-3">
-    <div class="flex flex-col rounded-lg bg-slate-100 p-6 gap-4">
-        <h1 class="mb-3 text-2xl">Create Your Account Today</h1>
-        
-        <label class="input input-bordered flex items-center gap-2">
-            <i class="opacity-70 fa-solid fa-envelope">
-            </i>
-            <input 
-                name="email" 
-                type="email" 
-                class="grow" 
-                placeholder="Email" 
-                <!-- value-element -->
-            />
-        </label>
-        <label class="input input-bordered flex items-center gap-2">
-            <i class="opacity-70 fa-solid fa-key">
-            </i>
-            <input 
-                name="password" 
-                type="password" 
-                class="grow" 
-                placeholder="Password" 
-                <!-- value-element -->
-            />
-        </label>
-        <label class="input input-bordered flex items-center gap-2">
-            <i class="opacity-70 fa-solid fa-key">
-            </i>
-            <input 
-                name="repeatPassword" 
-                type="password" 
-                class="grow" 
-                placeholder="Repeat Password" 
-                <!-- value-element -->
-            />
-        </label>
-    </div>
-    <button class="btn btn-primary w-full">
-        Sign up
-        <i aria-hidden="true" class="ml-auto fa-solid fa-arrow-right fa-lg">
-        </i>
-    </button>
+ <div class="flex flex-col rounded-lg bg-slate-100 p-6 gap-4">
+  <h1 class="mb-3 text-2xl">Create Your Account Today</h1>
+
+  <label class="input input-bordered flex items-center gap-2">
+   <i class="opacity-70 fa-solid fa-envelope"> </i>
+   <input
+    name="email"
+    type="email"
+    class="grow"
+    placeholder="Email"
+    <!--
+				value-element
+				--
+			/>
+			/>
+		</label>
+		<label class="input input-bordered flex items-center gap-2">
+			<i class="opacity-70 fa-solid fa-key"> </i>
+			<input
+				name="password"
+				type="password"
+				class="grow"
+				placeholder="Password"
+				<!--
+				value-element
+				--
+			/>
+			/>
+		</label>
+		<label class="input input-bordered flex items-center gap-2">
+			<i class="opacity-70 fa-solid fa-key"> </i>
+			<input
+				name="repeatPassword"
+				type="password"
+				class="grow"
+				placeholder="Repeat Password"
+				<!--
+				value-element
+				--
+			/>
+			/>
+		</label>
+	</div>
+	<button class="btn btn-primary w-full">
+		Sign up
+		<i aria-hidden="true" class="ml-auto fa-solid fa-arrow-right fa-lg"> </i>
+	</button>
 </form>
 ```
 
@@ -745,18 +751,18 @@ module.exports = router;
 - we will use `Font Awesome` to render the icons in our application, so let's add the library to our application.
 - inside the `partials/head.ejs` file, add a link to Font Awesome as follows:
 - also add the `title` dynamic value for the `<title>` tag
-  
+
 ```html
 <head>
-  <title><%= title %></title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/styles/style.css" rel="stylesheet" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  />
-  <!-- adding toastify link further-->
+	<title><%= title %></title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="/styles/style.css" rel="stylesheet" />
+	<link
+		rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+	/>
+	<!-- adding toastify link further-->
 </head>
 ```
 
@@ -764,38 +770,37 @@ module.exports = router;
 
 - first, we clear the controllers that we created earlier such are `createUser()`, `deleteUser()` and `getUser()` from `user.controller.js` file.
 - When the user submits the sign-up form, a POST request will be sent to the `/signup` route, so let's create a function called `signup()` that will handle the request.
-  
+
 ```js
 const signup = async (req, res) => {
+ const { email, password } = req.body;
+ const query = { email };
 
-    const { email, password } = req.body;
-    const query = { email };
-
-    const existingUser = await User.findOne(query);
-    if (existingUser) {
-        res.redirect("/signup");
-     } else {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = {
-            email,
-            password: hashedPassword,
-        };
-        const result = await User.create(user);
-        req.session.userId = result._id;
-        res.redirect("/dashboard");
-    }
+ const existingUser = await User.findOne(query);
+ if (existingUser) {
+  res.redirect("/signup");
+ } else {
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const user = {
+   email,
+   password: hashedPassword,
+  };
+  const result = await User.create(user);
+  req.session.userId = result._id;
+  res.redirect("/dashboard");
+ }
 };
 
 module.exports = {
-    signup,
+ signup,
 };
 ```
 
 - for using `hash()` function we have to install the `bcrypt` package as:
 
-    ```cmd
-    npm install bcrypt
-    ```
+  ```cmd
+  npm install bcrypt
+  ```
 
 - the `hash()` function returns a fixed-length alphanumeric character string.
 
@@ -807,9 +812,11 @@ module.exports = {
 ```js
 app.use(morgan("dev"));
 app.use(express.static("./public"));
-app.use(express.urlencoded({    
-    extended: false 
-}));
+app.use(
+ express.urlencoded({
+  extended: false,
+ })
+);
 ```
 
 - the `extended` option is used to let Express know whether we want to process advanced input formats (like nested objects or arrays).
@@ -819,32 +826,32 @@ app.use(express.urlencoded({
 ### Adding the Dashboard Page
 
 - create a Dashboard Page in your `views/pages/` folder named `dashboard.ejs` and add the following code:
-  
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<%- include("../partials/head.ejs") %>
-<body>
-    <h1>This is the Dashboard Page</h1>
-</body>
+ <%- include("../partials/head.ejs") %>
+ <body>
+  <h1>This is the Dashboard Page</h1>
+ </body>
 </html>
 ```
 
 - Next, create a `dashboard.route.js` file under the `routes/` folder and write the followig code:
-  
+
 ```js
 const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    res.render("pages/dashboard", { title: "Dashboard" });
+ res.render("pages/dashboard", { title: "Dashboard" });
 });
 
 module.exports = router;
 ```
 
 - finally add the dashboard route into the `index.js` file as follows:
-  
+
 ```js
 const dashboardRouter = require("./routes/dashboard.route");
 
@@ -860,15 +867,15 @@ app.use("/dashboard", dashboardRouter);
 
 - Currently we haven't shown any error message when the user already exists and we also didn't validate the form inputs.
 - to validate the form inputs and show error messages we need to use the `express-validator` and `connect-flash` libraries.
-  
+
 ### Adding Validation to the Sign Up process
 
 - the `express-validator` library is an express middleware that can be used to validate the `req.body` object values.
 - install as follows:
 
-    ```cmd
-    npm install express-validator
-    ```
+  ```cmd
+  npm install express-validator
+  ```
 
 - Next, open the `user.controller.js` file and add the code below:
 
@@ -876,31 +883,28 @@ app.use("/dashboard", dashboardRouter);
 const { body, validationResult } = require("express-validator");
 
 const validateSignup = [
-    body("email", "Email must not be empty").notEmpty(),
-    body("password", "Password must not be empty").notEmpty(),
-    body("password", "Password must be 6+ characters long").isLength({ min: 6 }),
-    body("repeatPassword", "Repeat Password must not be empty").notEmpty(),
-    body("repeatPassword", "Passwords do not match").custom(
-        (value, { req }) => value === req.body.password
-    ),
+ body("email", "Email must not be empty").notEmpty(),
+ body("password", "Password must not be empty").notEmpty(),
+ body("password", "Password must be 6+ characters long").isLength({ min: 6 }),
+ body("repeatPassword", "Repeat Password must not be empty").notEmpty(),
+ body("repeatPassword", "Passwords do not match").custom(
+  (value, { req }) => value === req.body.password
+ ),
 ];
 
 // signup() ...
 
 module.exports = {
-    signup,
-    validateSignup,
+ signup,
+ validateSignup,
 };
 ```
 
 - this validator array needs to be called before the `signup()` process, which means we need to export it from the controller.
 - and then imports the array inside the `user.route.js` file as:
-  
+
 ```js
-const { 
-    validateSignup, 
-    signup 
-} = require("../controllers/user.controller");
+const { validateSignup, signup } = require("../controllers/user.controller");
 
 // ...
 
@@ -911,15 +915,15 @@ router.post("/signup", validateSignup, signup);
 
 ```js
 const signup = async (req, res) => {
-    const validationErrors = validationResult(req);
-    if (!validationErrors.isEmpty()) {
-        const errors = validationErrors.array();
-        req.flash("errors", errors);
-        return res.redirect("/signup");
-    }
+ const validationErrors = validationResult(req);
+ if (!validationErrors.isEmpty()) {
+  const errors = validationErrors.array();
+  req.flash("errors", errors);
+  return res.redirect("/signup");
+ }
 
-    // ...
-}
+ // ...
+};
 ```
 
 - the `validationResult()` returns the `errors` object generated from running the validator functions.
@@ -931,20 +935,19 @@ const signup = async (req, res) => {
 - this library is commonly used in combination with redirects so that messages can be passed between requests.
 - installing as:
 
-    ```cmd
-    npm install connect-flash
-    ```
+  ```cmd
+  npm install connect-flash
+  ```
 
 - Next, import and use the module in `index.js` as:
 
 ```js
 const flash = require("connect-flash");
 
-
 app.use(
-    session({
-        // options
-    })
+ session({
+  // options
+ })
 );
 
 app.use(flash());
@@ -953,9 +956,9 @@ app.use(flash());
 - make sure that you can call `app.use(flash())` after the `app.use(session())` in your file.
 - any time you want to store a message on the `flash`, you only need to call `req.flash()` method as shown below:
 
-    ```js
-    req.flash("key","value");
-    ```
+  ```js
+  req.flash("key", "value");
+  ```
 
 - the `flash()` method stores messages in `key-value` pair.
 
@@ -963,21 +966,21 @@ app.use(flash());
 
 - to retrieve the error message stored in `flash` object, you need to call the `req.flash()` method and pass the `key` which stores the messages you want to get.
 - In your `user.route.js` file add a variable inside the `res.render()` function as:
-  
+
 ```js
 router.get("/signup", (req, res) => {
-    res.render("pages/signup", {
-        title: "Sign up",
-        // adding new variable
-        errors: req.flash("errors"),
-    });
+ res.render("pages/signup", {
+  title: "Sign up",
+  // adding new variable
+  errors: req.flash("errors"),
+ });
 });
 ```
 
 - once a message is retrieved, flash will remove that message from the `session`.
 - to display the error messages, you only need to access the `errors` object from `ejs` template files.
 - in your `signup.ejs` file, include a partial template below the `<h1>` element as:
-  
+
 ```html
 <h1 class="mb-3 text-2xl">Create Your Account Today</h1>
 <%- include('../partials/formErrors') %>
@@ -986,14 +989,12 @@ router.get("/signup", (req, res) => {
 - Next, create the `partials/formErrors.ejs` file and write following code:
 
 ```html
-<% if(typeof errors !== 'undefined') { %>
-  <% errors.forEach(function(error) { %>
-    <div role="alert" class="alert alert-error">
-      <i class="fa-regular fa-circle-xmark"></i>
-      <span><%= error.msg %></span>
-    </div>
-  <% }) %>
-<% } %>
+<% if(typeof errors !== 'undefined') { %> <% errors.forEach(function(error) { %>
+<div role="alert" class="alert alert-error">
+ <i class="fa-regular fa-circle-xmark"></i>
+ <span><%= error.msg %></span>
+</div>
+<% }) %> <% } %>
 ```
 
 ### Preserving Input Data on Sign Up Form
@@ -1002,56 +1003,56 @@ router.get("/signup", (req, res) => {
 - Right now, the form inputs will be empty after the form fails, and the user needs to re-enter their details into the form.
 - we can provide a better user experience by keeping the form inputs filled in case of an error.
 - Back in the `signup()` controller function and add the `req.body` data to the `flash` object as:
-  
+
 ```js
 if (!validationErrors.isEmpty()) {
-    const errors = validationErrors.array();
-    req.flash("errors", errors);
-    // adding user-details to flash
-    req.flash("data", req.body);
-    return res.redirect("/signup");
+ const errors = validationErrors.array();
+ req.flash("errors", errors);
+ // adding user-details to flash
+ req.flash("data", req.body);
+ return res.redirect("/signup");
 }
 ```
 
 - Now we can retrieve user data when rendering the sign up page in `user.route.js`.
-  
+
 ```js
 router.get("/signup", (req, res) => {
-    res.render("pages/signup", {
-        title: "Sign up",
-        // getting details of user 
-        user: req.flash("data")[0],
-        errors: req.flash("errors"),
-    });
+ res.render("pages/signup", {
+  title: "Sign up",
+  // getting details of user
+  user: req.flash("data")[0],
+  errors: req.flash("errors"),
+ });
 });
 ```
 
 - with the `user` data retrieved, you can display that data in `signup.ejs` file.
 - on the `<input>` elements, add a `value` attribute as follows:
-  
+
 ```html
-<input 
-    name="email" 
-    type="email" 
-    class="grow" 
-    placeholder="Email" 
-    value="<%= user?.email || '' %>" 
+<input
+ name="email"
+ type="email"
+ class="grow"
+ placeholder="Email"
+ value="<%= user?.email || '' %>"
 />
 
-<input 
-    name="password" 
-    type="password" 
-    class="grow" 
-    placeholder="Password" 
-    value="<%= user?.password || '' %>" 
+<input
+ name="password"
+ type="password"
+ class="grow"
+ placeholder="Password"
+ value="<%= user?.password || '' %>"
 />
 
-<input 
-    name="repeatPassword" 
-    type="password" 
-    class="grow" 
-    placeholder="Repeat Password" 
-    value="<%= user?.repeatPassword || '' %>" 
+<input
+ name="repeatPassword"
+ type="password"
+ class="grow"
+ placeholder="Repeat Password"
+ value="<%= user?.repeatPassword || '' %>"
 />
 ```
 
@@ -1061,30 +1062,30 @@ router.get("/signup", (req, res) => {
 
 - There is one more part that is to show some notification when the email already exists in our database.
 - inside the `signup()` function, we can add another `flash` message inside the `if(existingUser)` block like this:
-  
+
 ```js
 if (existingUser) {
-    req.flash("data", req.body);
-    // adding new message
-    req.flash("info", {
-        message: "Email is already registered. Try to login instead",
-        type: "error",
-    });
-    res.redirect("/signup");
+ req.flash("data", req.body);
+ // adding new message
+ req.flash("info", {
+  message: "Email is already registered. Try to login instead",
+  type: "error",
+ });
+ res.redirect("/signup");
 }
 ```
 
 - When rendering the sign up page, we can add the `flash` message to a variable as follows:
-  
+
 ```js
 router.get("/signup", (req, res) => {
-    res.render("pages/signup", {
-        title: "Sign up",
-        user: req.flash("data")[0],
-        // adding new 
-        info: req.flash("info")[0],
-        errors: req.flash("errors"),
-    });
+ res.render("pages/signup", {
+  title: "Sign up",
+  user: req.flash("data")[0],
+  // adding new
+  info: req.flash("info")[0],
+  errors: req.flash("errors"),
+ });
 });
 ```
 
@@ -1096,9 +1097,9 @@ router.get("/signup", (req, res) => {
 - on the `partials/head.ejs` file, add the CSS part as:
 
 ```js
-<link 
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+<link
+ rel="stylesheet"
+ href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
 />
 ```
 
@@ -1119,7 +1120,7 @@ router.get("/signup", (req, res) => {
     position: 'right',
     offset: {
       x: 50,
-      y: 10 
+      y: 10
     },
     style: {
       back ground: bgColors['<%= info.type %>'],
@@ -1151,7 +1152,7 @@ else {
 ```
 
 - Now the `signup` page is completed.
-  
+
 ## ADDING LOGIN AND LOGOUT FUNCTIONALITY
 
 ### Creating the Landing Page
@@ -1198,10 +1199,10 @@ else {
 
 ```js
 router.get("/", (req, res) => {
-    res.render("pages/dashboard", {
-        title: "Dashboard",
-        info: req.flash("info")[0],
-    });
+ res.render("pages/dashboard", {
+  title: "Dashboard",
+  info: req.flash("info")[0],
+ });
 });
 ```
 
@@ -1212,40 +1213,42 @@ router.get("/", (req, res) => {
 
 ```html
 <div class="fixed w-56 bg-white shadow-md h-screen flex flex-col">
-  <div class="h-40 p-4 bg-green-500 text-white text-4xl flex justify-start items-end">
-    <i aria-hidden="true" class="fa-solid fa-coins pr-4"></i>
-    Finly
-  </div>
-  <div class="flex grow flex-col py-4 justify-between">
-    <ul>
-      <li>
-        <a href="/dashboard" class="block p-4 hover:bg-sky-100">
-          <i aria-hidden="true" class="fa-solid fa-home pr-2"></i>
-          Home
-        </a>
-      </li>
-      <li>
-        <a href="/dashboard/customers" class="block p-4 hover:bg-sky-100">
-          <i aria-hidden="true" class="fa-solid fa-users pr-2"></i>
-          Customers
-        </a>
-      </li>
-      <li>
-        <a href="/dashboard/invoices" class="block p-4 hover:bg-sky-100">
-          <i aria-hidden="true" class="fa-solid fa-copy pr-2"></i>
-          Invoices
-        </a>
-      </li>
-    </ul>
-    <ul>
-      <li>
-        <a href="/logout" class="block p-4 hover:bg-sky-100">
-          <i aria-hidden="true" class="fa-solid fa-power-off pr-2"></i>
-          Sign out
-        </a>
-      </li>
-    </ul>
-  </div>
+ <div
+  class="h-40 p-4 bg-green-500 text-white text-4xl flex justify-start items-end"
+ >
+  <i aria-hidden="true" class="fa-solid fa-coins pr-4"></i>
+  Finly
+ </div>
+ <div class="flex grow flex-col py-4 justify-between">
+  <ul>
+   <li>
+    <a href="/dashboard" class="block p-4 hover:bg-sky-100">
+     <i aria-hidden="true" class="fa-solid fa-home pr-2"></i>
+     Home
+    </a>
+   </li>
+   <li>
+    <a href="/dashboard/customers" class="block p-4 hover:bg-sky-100">
+     <i aria-hidden="true" class="fa-solid fa-users pr-2"></i>
+     Customers
+    </a>
+   </li>
+   <li>
+    <a href="/dashboard/invoices" class="block p-4 hover:bg-sky-100">
+     <i aria-hidden="true" class="fa-solid fa-copy pr-2"></i>
+     Invoices
+    </a>
+   </li>
+  </ul>
+  <ul>
+   <li>
+    <a href="/logout" class="block p-4 hover:bg-sky-100">
+     <i aria-hidden="true" class="fa-solid fa-power-off pr-2"></i>
+     Sign out
+    </a>
+   </li>
+  </ul>
+ </div>
 </div>
 ```
 
@@ -1254,17 +1257,17 @@ router.get("/", (req, res) => {
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head') %>
-<body class="bg-gray-100">
+ <%- include('../partials/head') %>
+ <body class="bg-gray-100">
   <div class="flex h-screen overflow-hidden">
-    <!-- including navbar -->
-    <%- include('../partials/navbar') %>
-    <div class="ml-56 flex-grow p-10 overflow-y-auto">
-      <h1 class=" mb-4 text-xl md:text-2xl">Dashboard</h1>
-    </div>
+   <!-- including navbar -->
+   <%- include('../partials/navbar') %>
+   <div class="ml-56 flex-grow p-10 overflow-y-auto">
+    <h1 class=" mb-4 text-xl md:text-2xl">Dashboard</h1>
+   </div>
   </div>
-<%- include('../partials/script') %>
-</body>
+  <%- include('../partials/script') %>
+ </body>
 </html>
 ```
 
@@ -1272,47 +1275,59 @@ router.get("/", (req, res) => {
 
 - to create the login page, you need to add another view file on the `pages/` folder.
 - create a file named `login.ejs` and add the following code:
-  
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head') %>
-<body>
-  <main class="flex mx-auto w-full max-w-[400px] flex-col space-y-2.5 p-4 mt-12">
-    <div class="flex h-24 w-full items-end rounded-lg bg-green-500 p-3">
-      <div class="flex flex-row items-center text-white">
-        <i aria-hidden="true" class="fa-3x fa-solid fa-coins pr-4">
-        </i>
-        <p class="text-[44px]">Finly</p>
-      </div>
+ <%- include('../partials/head') %>
+ <body>
+  <main
+   class="flex mx-auto w-full max-w-[400px] flex-col space-y-2.5 p-4 mt-12"
+  >
+   <div class="flex h-24 w-full items-end rounded-lg bg-green-500 p-3">
+    <div class="flex flex-row items-center text-white">
+     <i aria-hidden="true" class="fa-3x fa-solid fa-coins pr-4"> </i>
+     <p class="text-[44px]">Finly</p>
     </div>
-    <form action="/login" method="post" class="space-y-3">
-      <div class="flex flex-col rounded-lg bg-slate-100 p-6 gap-4">
-        <h1 class="mb-3 text-2xl">Enter Your Account</h1>
-        <%- include('../partials/formErrors') %>
-        <label class="input input-bordered flex items-center gap-2">
-          <i class="opacity-70 fa-solid fa-envelope">
-          </i>
-          <input name='email' type="email" class="grow" placeholder="Email" value="<%= user?.email || '' %>" />
-        </label>
-        <label class="input input-bordered flex items-center gap-2">
-          <i class="opacity-70 fa-solid fa-key">
-          </i>
-          <input name='password' type="password" class="grow" placeholder="Password" value="<%= user?.password || '' %>" />
-        </label>
-      </div>
-      <button class="btn btn-primary w-full">
-        Log in
-        <i aria-hidden="true" class="ml-auto fa-solid fa-arrow-right fa-lg">
-        </i>
-      </button>
-    </form>
-    <span>
-      Don't have an account? <a href='/signup' class="link link-primary link-hover">Sign Up</a>
-    </span>
+   </div>
+   <form action="/login" method="post" class="space-y-3">
+    <div class="flex flex-col rounded-lg bg-slate-100 p-6 gap-4">
+     <h1 class="mb-3 text-2xl">Enter Your Account</h1>
+     <%- include('../partials/formErrors') %>
+     <label class="input input-bordered flex items-center gap-2">
+      <i class="opacity-70 fa-solid fa-envelope"> </i>
+      <input
+       name="email"
+       type="email"
+       class="grow"
+       placeholder="Email"
+       value="<%= user?.email || '' %>"
+      />
+     </label>
+     <label class="input input-bordered flex items-center gap-2">
+      <i class="opacity-70 fa-solid fa-key"> </i>
+      <input
+       name="password"
+       type="password"
+       class="grow"
+       placeholder="Password"
+       value="<%= user?.password || '' %>"
+      />
+     </label>
+    </div>
+    <button class="btn btn-primary w-full">
+     Log in
+     <i aria-hidden="true" class="ml-auto fa-solid fa-arrow-right fa-lg">
+     </i>
+    </button>
+   </form>
+   <span>
+    Don't have an account?
+    <a href="/signup" class="link link-primary link-hover">Sign Up</a>
+   </span>
   </main>
   <%- include('../partials/script') %>
-</body>
+ </body>
 </html>
 ```
 
@@ -1321,11 +1336,11 @@ router.get("/", (req, res) => {
 ### Adding Login Function to User Controller
 
 - in the `user.controller.js` file, add the `validationLogin` array to validate the login form as:
-  
+
 ```js
 const validateLogin = [
-    body("email", "Email must not be empty").notEmpty(),
-    body("password", "Password must not be empty").notEmpty(),
+ body("email", "Email must not be empty").notEmpty(),
+ body("password", "Password must not be empty").notEmpty(),
 ];
 ```
 
@@ -1333,56 +1348,56 @@ const validateLogin = [
 
 ```js
 const login = async (req, res) => {
-    const validationErrors = validationResult(req);
-    if (!validationErrors.isEmpty()) {
-        const errors = validationErrors.array();
-        req.flash("errors", errors);
-        req.flash("data", req.body);
-        return res.redirect("/login");
-    }
+ const validationErrors = validationResult(req);
+ if (!validationErrors.isEmpty()) {
+  const errors = validationErrors.array();
+  req.flash("errors", errors);
+  req.flash("data", req.body);
+  return res.redirect("/login");
+ }
 
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (user) {
-        const passwordMatch = await bcrypt.compare(password, user.password);
-        if (passwordMatch) {
-            req.session.userId = user._id;
-            req.flash("info", {
-                message: "Login Successful",
-                type: "success",
-            });
-            res.redirect("/dashboard");
-        } else {
-            req.flash("info", {
-                message: "Wrong Password",
-                type: "error",
-            });
-            req.flash("data", req.body);
-            res.redirect("/login");
-        }
-    } else {
-        req.flash("info", {
-            message: "Email is not registered",
-            type: "error",
-        });
-        req.flash("data", req.body);
-        res.redirect("/login");
-    }
+ const { email, password } = req.body;
+ const user = await User.findOne({ email });
+ if (user) {
+  const passwordMatch = await bcrypt.compare(password, user.password);
+  if (passwordMatch) {
+   req.session.userId = user._id;
+   req.flash("info", {
+    message: "Login Successful",
+    type: "success",
+   });
+   res.redirect("/dashboard");
+  } else {
+   req.flash("info", {
+    message: "Wrong Password",
+    type: "error",
+   });
+   req.flash("data", req.body);
+   res.redirect("/login");
+  }
+ } else {
+  req.flash("info", {
+   message: "Email is not registered",
+   type: "error",
+  });
+  req.flash("data", req.body);
+  res.redirect("/login");
+ }
 };
 ```
 
 ### Adding Logout Function
 
 - Next, add the `logout()` function just below the `login()` function as:
-  
+
 ```js
 const logout = (req, res) => {
-    req.session.userId = null;
-    req.flash("info", {
-        message: "Logout Successful",
-        type: "success",
-    });
-    res.redirect("/");
+ req.session.userId = null;
+ req.flash("info", {
+  message: "Logout Successful",
+  type: "success",
+ });
+ res.redirect("/");
 };
 ```
 
@@ -1390,11 +1405,11 @@ const logout = (req, res) => {
 
 ```js
 module.exports = {
-    signup,
-    validateSignup,
-    login,
-    validateLogin,
-    logout,
+ signup,
+ validateSignup,
+ login,
+ validateLogin,
+ logout,
 };
 ```
 
@@ -1402,14 +1417,14 @@ module.exports = {
 
 - Next step is to update the user routes.
 - First, update the `imports` as shown below:
-  
+
 ```js
 const {
-    validateSignup,
-    signup,
-    login,
-    validateLogin,
-    logout,
+ validateSignup,
+ signup,
+ login,
+ validateLogin,
+ logout,
 } = require("../controllers/user.controller");
 ```
 
@@ -1418,12 +1433,12 @@ const {
 
 ```js
 router.get("/login", (req, res) => {
-    res.render("pages/login", {
-        title: "Sign in",
-        user: req.flash("data")[0],
-        info: req.flash("info")[0],
-        errors: req.flash("errors"),
-    });
+ res.render("pages/login", {
+  title: "Sign in",
+  user: req.flash("data")[0],
+  info: req.flash("info")[0],
+  errors: req.flash("errors"),
+ });
 });
 
 router.post("/login", validateLogin, login);
@@ -1432,13 +1447,13 @@ router.get("/logout", logout);
 ```
 
 - also update the landing page to get the `info` message:
-  
+
 ```js
 router.get("/", (req, res) => {
-    res.render("pages/index", {
-        title: "Finly",
-        info: req.flash("info")[0],
-    });
+ res.render("pages/index", {
+  title: "Finly",
+  info: req.flash("info")[0],
+ });
 });
 ```
 
@@ -1449,7 +1464,7 @@ router.get("/", (req, res) => {
 
 - Now that user authentication is completed, it's time to add a verification process each time the user wants to access a route that requires authentication.
 - This can be done by using an **Express Middleware**, so let's learn about middleware first.
-  
+
 ### Express Middleware Explained
 
 - In Express, **Middlewares** are functions that have access to the `request`,`response` and `next` objects.
@@ -1458,12 +1473,12 @@ router.get("/", (req, res) => {
 - An Express application is essentially a series of middleware function calls.
 - The order of the middleware is determined by the position of `app.use()` function we defined in our `index.js` file.
 - This is why you need to place your specific routes above general routes like this:
-  
+
 ```js
 app.use("/dashboard", dashboardRouter);
 
 app.use("/{*any}", (req, res) => {
-    res.render("index", { message: "Page Not Found", title: undefined });
+ res.render("index", { message: "Page Not Found", title: undefined });
 });
 ```
 
@@ -1473,7 +1488,7 @@ app.use("/{*any}", (req, res) => {
 
 ```js
 app.use("/{*any}", (req, res) => {
-    res.render("index", { message: "Page Not Found", title: undefined });
+ res.render("index", { message: "Page Not Found", title: undefined });
 });
 
 app.use("/dashboard", dashboardRouter);
@@ -1483,19 +1498,19 @@ app.use("/dashboard", dashboardRouter);
 
 ### Adding Verification Middleware
 
-- To protect routes from ***unauthenticated users***, you need to create a middleware that verifies the `session` object that's included in every request.
+- To protect routes from **_unauthenticated users_**, you need to create a middleware that verifies the `session` object that's included in every request.
 - When this `session` object contains a valid `userId`, the request is passed to the `next()` middleware.
 - If the `session` isn't valid, then we redirect to the `/login` page.
 - Inside your `libs/` folder, create a new file named `middleware.js` and write the following code:
 
 ```js
 const verifyUser = (req, res, next) => {
-    if (!req.session.userId) return res.redirect("/login");
-    next();
+ if (!req.session.userId) return res.redirect("/login");
+ next();
 };
 
 module.exports = {
-    verifyUser,
+ verifyUser,
 };
 ```
 
@@ -1503,7 +1518,7 @@ module.exports = {
 - When there's no `userId` property, then function redirects to the login page.
 - Now use this middleware on the dashboard route.
 - Open the `index.js` file, import the middleware, and place it in the `app.use('/dashboard')` call as follows:
-  
+
 ```js
 const { verifyUser } = require("./libs/middleware");
 
@@ -1523,28 +1538,257 @@ app.use("/dashboard", verifyUser, dashboardRouter);
 
 ```js
 const redirectAuthenticated = (req, res, next) => {
-    if (req.session.userId) return res.redirect("/dashboard");
-    next();
+ if (req.session.userId) return res.redirect("/dashboard");
+ next();
 };
 
 module.exports = {
-    verifyUser,
-    redirectAuthenticated,
+ verifyUser,
+ redirectAuthenticated,
 };
 ```
 
 - Import the middleware inside the `user.route.js` file, then place it in front of the `/signup` and `/login` page as:
-  
+
 ```js
 const { redirectAuthenticated } = require("../libs/middleware");
 
 router.get("/signup", redirectAuthenticated, (req, res) => {
-    // res.render()...
+ // res.render()...
 });
 
 router.get("/login", redirectAuthenticated, (req, res) => {
-    // res.render() ...
+ // res.render() ...
 });
 ```
 
 - Now whenever authenticated users can access the `/signup` or `/login` page, they will be redirected to the `/dashboard` page.
+
+## CREATE, READ, UPDATE AND DELETE CUSTOMERS
+
+- Now we need to provide a way for users to _create, read, update_ and _delete_ `customers` from the application.
+- We need to start by creating the `data model`, then create `controllers` that use request data to manipulate the model accordingly, and then present the data using a `view template`.
+- once the `MVC` pattern is implemented, we connect it to our appliction by adding new routes.
+
+### Creating the Customer Model
+
+- inside the `models/` folder, create a new file named `customer.model.js` and add the code below:
+
+```js
+const { Schema, model } = require("mongoose");
+
+const CustomerSchema = new Schema({
+ name: {
+  type: String,
+  required: true,
+ },
+ email: {
+  type: String,
+  required: true,
+  unique: true,
+ },
+ phone: {
+  type: String,
+  required: true,
+ },
+ address: {
+  type: String,
+  required: true,
+ },
+ owner: {
+  type: Schema.Types.ObjectId,
+  ref: "User",
+ },
+});
+
+const Customer = model("Customer", CustomerSchema);
+
+module.exports = Customer;
+```
+
+- The model above is connected to the `User` model through the `owner` field, which reference the `_id` field of the `User` model.
+- Now whenever we create a new customer document in `MongoDB`, we need to provide the `owner` field, or there will be an _error_.
+
+### Creating the Customer Controller
+
+- inside the `controllers/` folder, create the `customer.controller.js` file and begin by importing the `Customer` model and `express-validator`.
+
+```js
+const Customer = require("../libs/models/customer.model");
+
+const { body, validationResult } = require("express-validator");
+```
+
+- Next, create the validation logic for the customer data. Here, we simply check that the values are not empty.
+
+```js
+const validateCustomer = [
+ body("name", "Name must not be empty").notEmpty(),
+ body("email", "Email must not be empty").notEmpty(),
+ body("phone", "Phone must not be empty").notEmpty(),
+ body("address", "Address must not be empty").notEmpty(),
+];
+```
+
+- Next, we need to create functions to manipulate the user data.
+- The following `showCustomers()` controller function will find customers of the current user, then render the customer page:
+
+```js
+const showCustomers = async (req, res) => {
+ const query = { owner: req.session.userId };
+ const customers = await Customer.find(query);
+
+ res.render("pages/customers", {
+  title: "Customers",
+  type: "data",
+  customers,
+  info: req.flash("info")[0],
+ });
+};
+```
+
+- You can see that we use the `req.session.userId` value to find the customers.
+- Notice that there's a new `type` variable added to the `render()` method, This variable will be used by our `view` template later to show the correct partial template.
+- now we have to export the validator and the function:
+
+```js
+module.exports = {
+ validateCustomer,
+ showCustomers,
+};
+```
+
+### Creating the Customer Views
+
+- Let's add the view used by our controller next. Inside the `views/pages` folder, create a new template named `customers.ejs` with the following content:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+ <%- include('../partials/head') %>
+ <body class="bg-gray-100">
+  <div class="flex h-screen overflow-hidden">
+   <%- include('../partials/navbar') %>
+   <div class="ml-56 flex-grow p-10 overflow-y-auto">
+    <% if (type === 'data') { %> <%- include('../partials/customerData') %>
+    <% } else { %> <%- include('../partials/customerForm') %> <% } %>
+   </div>
+  </div>
+  <%- include('../partials/script') %>
+ </body>
+</html>
+```
+
+- Next, in your `views/partials` folder, create the `customerData.ejs` file and write the code below:
+
+```html
+<div class="w-full">
+ <div class="flex w-full items-center justify-between">
+  <h1 class="text-2xl"><%= title %></h1>
+ </div>
+ <form>
+  <div class="mt-4 flex items-center justify-between gap-2 md:mt-8">
+   <div class="relative flex flex-1 flex-shrink-0">
+    <label
+     for="search"
+     class="input input-bordered flex items-center gap-2 w-full"
+    >
+     <i class="fa-solid fa-magnifying-glass"></i>
+     <input
+      id="search"
+      name="search"
+      type="text"
+      class="grow"
+      placeholder="Search customers..."
+     />
+    </label>
+   </div>
+   <a class="btn btn-primary" href="customers/create">
+    <i class="fa-solid fa-plus fa-lg mr-2"></i>
+    New Customer
+   </a>
+  </div>
+ </form>
+ <!-- adding new code here -->
+</div>
+```
+
+- The above code will render a search input and a button to create a new customer.
+- just below the closing `</form>` tag, add the code to render a table as follows:
+
+```html
+<div class="mt-6 overflow-x-auto bg-white rounded-lg p-2">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% customers.forEach(function(customer){ %>
+  <tr>
+    <td> <%= customer.name %> </td>
+    <td> <%= customer.email %> </td>
+    <td> <%= customer.address %> </td>
+    <td> <%= customer.phone %> </td>
+    <td>
+      <div class="flex justify-end gap-3">
+        <a 
+          class="rounded-md border p-2 hover:bg-gray-100" 
+          href="customers/<%= customer._id %>/edit"
+        >
+          <i 
+            class="fa-solid fa-pen-to-square fa-lg">
+          </i>
+        </a>
+        <button 
+          class="rounded-md border p-2 hover:bg-gray-100" 
+          onclick="deleteModal('<%= customer._id %>')"
+        >
+          <span class="sr-only">
+            Delete
+          </span>
+          <i class="fa-solid fa-trash fa-lg"></i>
+        </button>
+      </div>
+    </td>
+  </tr>
+  <% }); %>
+</tbody>
+</table>
+</div>
+```
+
+- The table above will show the customer data, then show two buttons: one for editing the customer, and one for deleting the customer.
+- after that, you need to create a `<dialog>` element that will be used as the model.
+- You can place this element at the bottom of the template file:
+  
+```html
+<dialog id="delete-modal" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Are you sure?</h3>
+    <p class="py-4">All invoices related to the customer will be deleted</p>
+    <div class="modal-action">
+      <form id='delete-form' method="post"><button class="btn btn-danger">Yes</button></form>
+      <form method="dialog"><button class="btn">Cancel</button></form>
+    </div>
+  </div>
+</dialog>
+```
+
+- Next, add a `<script>` element and define the `deleteModel()` function as:
+  
+```js
+<script>
+  function deleteModal(customerId){
+    const modal = document.querySelector('#delete-modal');
+    const deleteForm = document.querySelector('#delete-form');
+    deleteForm.setAttribute('action', `customers/${customerId}/delete`)
+    modal.showModal();
+  }
+</script>
+```

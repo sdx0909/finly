@@ -640,10 +640,24 @@ video {
   color: var(--color-base-content);
 }
 
+:root:has( .modal-open, .modal[open], .modal:target, .modal-toggle:checked, .drawer:not([class*="drawer-open"]) > .drawer-toggle:checked ) {
+  overflow: hidden;
+}
+
 @property --radialprogress {
   syntax: "<percentage>";
   inherits: true;
   initial-value: 0%;
+}
+
+:where( :root:has( .modal-open, .modal[open], .modal:target, .modal-toggle:checked, .drawer:not(.drawer-open) > .drawer-toggle:checked ) ) {
+  scrollbar-gutter: stable;
+  background-image: linear-gradient(var(--color-base-100), var(--color-base-100));
+  --root-bg: color-mix(in srgb, var(--color-base-100), oklch(0% 0 0) 40%);
+}
+
+:where(.modal[open], .modal-open, .modal-toggle:checked + .modal):not(.modal-start, .modal-end) {
+  scrollbar-gutter: stable;
 }
 
 :root {
@@ -754,6 +768,26 @@ video {
 .btn-primary {
   --btn-color: var(--color-primary);
   --btn-fg: var(--color-primary-content);
+}
+.btn-ghost:not(.btn-active, :hover, :active:focus, :focus-visible) {
+  --btn-shadow: "";
+  --btn-bg: #0000;
+  --btn-border: #0000;
+  --btn-noise: none;
+}
+.btn-ghost:not(.btn-active, :hover, :active:focus, :focus-visible):not(:disabled, [disabled], .btn-disabled) {
+  outline-color: currentColor;
+  --btn-fg: currentColor;
+}
+@media (hover: none) {
+
+  .btn-ghost:hover:not(.btn-active, :active, :focus-visible, :disabled, [disabled], .btn-disabled) {
+    --btn-shadow: "";
+    --btn-bg: #0000;
+    --btn-border: #0000;
+    --btn-noise: none;
+    --btn-fg: currentColor;
+  }
 }
 @keyframes progress {
 
@@ -902,6 +936,57 @@ video {
   color: var(--color-error-content);
   --alert-color: var(--color-error);
 }
+.table {
+  font-size: 0.875rem;
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-box);
+  text-align: left;
+}
+.table:where(:dir(rtl), [dir="rtl"], [dir="rtl"] *) {
+  text-align: right;
+}
+@media (hover: hover) {
+
+  .table tr.row-hover:hover, .table tr.row-hover:nth-child(even):hover {
+    background-color: var(--color-base-200);
+  }
+}
+.table :where(th, td) {
+  padding-inline: calc(0.25rem * 4);
+  padding-block: calc(0.25rem * 3);
+  vertical-align: middle;
+}
+.table :where(thead, tfoot) {
+  white-space: nowrap;
+  color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.table :where(tfoot) {
+  border-top: var(--border) solid color-mix(in oklch, var(--color-base-content) 5%, #0000);
+}
+.table :where(.table-pin-rows thead tr) {
+  position: sticky;
+  top: calc(0.25rem * 0);
+  z-index: 1;
+  background-color: var(--color-base-100);
+}
+.table :where(.table-pin-rows tfoot tr) {
+  position: sticky;
+  bottom: calc(0.25rem * 0);
+  z-index: 1;
+  background-color: var(--color-base-100);
+}
+.table :where(.table-pin-cols tr th) {
+  position: sticky;
+  right: calc(0.25rem * 0);
+  left: calc(0.25rem * 0);
+  background-color: var(--color-base-100);
+}
+.table :where(thead tr, tbody tr:not(:last-child)) {
+  border-bottom: var(--border) solid color-mix(in oklch, var(--color-base-content) 5%, #0000);
+}
 .input {
   cursor: text;
   border: var(--border) solid #0000;
@@ -1042,8 +1127,168 @@ video {
   padding: 0.5rem;
   min-height: 4rem;
 }
+.modal {
+  pointer-events: none;
+  visibility: hidden;
+  position: fixed;
+  inset: calc(0.25rem * 0);
+  margin: calc(0.25rem * 0);
+  display: grid;
+  height: 100%;
+  max-height: none;
+  width: 100%;
+  max-width: none;
+  align-items: center;
+  justify-items: center;
+  background-color: transparent;
+  padding: calc(0.25rem * 0);
+  color: inherit;
+  overflow-x: hidden;
+  transition: translate 0.3s ease-out, visibility 0.3s allow-discrete, background-color 0.3s ease-out, opacity 0.1s ease-out;
+  overflow-y: hidden;
+  overscroll-behavior: contain;
+  z-index: 999;
+}
+.modal::backdrop {
+  display: none;
+}
+.modal.modal-open, .modal[open], .modal:target {
+  pointer-events: auto;
+  visibility: visible;
+  opacity: 100%;
+  background-color: oklch(0% 0 0/ 0.4);
+}
+.modal.modal-open .modal-box, .modal[open] .modal-box, .modal:target .modal-box {
+  translate: 0 0;
+  scale: 1;
+  opacity: 1;
+}
+@starting-style {
+
+  .modal.modal-open, .modal[open], .modal:target {
+    visibility: hidden;
+    opacity: 0%;
+  }
+}
+.modal-action {
+  margin-top: calc(0.25rem * 6);
+  display: flex;
+  justify-content: flex-end;
+  gap: calc(0.25rem * 2);
+}
+.modal-toggle:checked + .modal {
+  pointer-events: auto;
+  visibility: visible;
+  opacity: 100%;
+  background-color: oklch(0% 0 0/ 0.4);
+}
+.modal-toggle:checked + .modal .modal-box {
+  translate: 0 0;
+  scale: 1;
+  opacity: 1;
+}
+@starting-style {
+
+  .modal-toggle:checked + .modal {
+    visibility: hidden;
+    opacity: 0%;
+  }
+}
+.modal-box {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  max-height: 100vh;
+  width: calc(11/12 * 100%);
+  max-width: 32rem;
+  background-color: var(--color-base-100);
+  padding: calc(0.25rem * 6);
+  transition: translate 0.3s ease-out, scale 0.3s ease-out, opacity 0.2s ease-out 0.05s, box-shadow 0.3s ease-out;
+  border-top-left-radius: var(--modal-tl, var(--radius-box));
+  border-top-right-radius: var(--modal-tr, var(--radius-box));
+  border-bottom-left-radius: var(--modal-bl, var(--radius-box));
+  border-bottom-right-radius: var(--modal-br, var(--radius-box));
+  scale: 95%;
+  opacity: 0;
+  box-shadow: oklch(0% 0 0/ 0.25) 0px 25px 50px -12px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.modal-top :where(.modal-box) {
+  height: auto;
+  width: 100%;
+  max-width: none;
+  max-height: calc(100vh - 5em);
+  translate: 0 -100%;
+  scale: 1;
+  --modal-tl: 0;
+  --modal-tr: 0;
+  --modal-bl: var(--radius-box);
+  --modal-br: var(--radius-box);
+}
+.modal-middle :where(.modal-box) {
+  height: auto;
+  width: calc(11/12 * 100%);
+  max-width: 32rem;
+  max-height: calc(100vh - 5em);
+  translate: 0 2%;
+  scale: 98%;
+  --modal-tl: var(--radius-box);
+  --modal-tr: var(--radius-box);
+  --modal-bl: var(--radius-box);
+  --modal-br: var(--radius-box);
+}
+.modal-bottom :where(.modal-box) {
+  height: auto;
+  width: 100%;
+  max-width: none;
+  max-height: calc(100vh - 5em);
+  translate: 0 100%;
+  scale: 1;
+  --modal-tl: var(--radius-box);
+  --modal-tr: var(--radius-box);
+  --modal-bl: 0;
+  --modal-br: 0;
+}
+.modal-start :where(.modal-box) {
+  height: 100vh;
+  max-height: none;
+  width: auto;
+  max-width: none;
+  translate: -100% 0;
+  scale: 1;
+  --modal-tl: 0;
+  --modal-tr: var(--radius-box);
+  --modal-bl: 0;
+  --modal-br: var(--radius-box);
+}
+.modal-end :where(.modal-box) {
+  height: 100vh;
+  max-height: none;
+  width: auto;
+  max-width: none;
+  translate: 100% 0;
+  scale: 1;
+  --modal-tl: var(--radius-box);
+  --modal-tr: 0;
+  --modal-bl: var(--radius-box);
+  --modal-br: 0;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 .fixed {
   position: fixed;
+}
+.relative {
+  position: relative;
 }
 .m-2 {
   margin: 0.5rem;
@@ -1067,17 +1312,26 @@ video {
 .ml-auto {
   margin-left: auto;
 }
+.mr-2 {
+  margin-right: 0.5rem;
+}
 .mt-12 {
   margin-top: 3rem;
 }
 .mt-4 {
   margin-top: 1rem;
 }
+.mt-6 {
+  margin-top: 1.5rem;
+}
 .block {
   display: block;
 }
 .flex {
   display: flex;
+}
+.table {
+  display: table;
 }
 .h-24 {
   height: 6rem;
@@ -1103,6 +1357,12 @@ video {
 .max-w-\[400px\] {
   max-width: 400px;
 }
+.flex-1 {
+  flex: 1 1 0%;
+}
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
 .shrink-0 {
   flex-shrink: 0;
 }
@@ -1127,6 +1387,9 @@ video {
 .justify-start {
   justify-content: flex-start;
 }
+.justify-end {
+  justify-content: flex-end;
+}
 .justify-center {
   justify-content: center;
 }
@@ -1135,6 +1398,9 @@ video {
 }
 .gap-2 {
   gap: 0.5rem;
+}
+.gap-3 {
+  gap: 0.75rem;
 }
 .gap-4 {
   gap: 1rem;
@@ -1155,11 +1421,20 @@ video {
 .overflow-hidden {
   overflow: hidden;
 }
+.overflow-x-auto {
+  overflow-x: auto;
+}
 .overflow-y-auto {
   overflow-y: auto;
 }
 .rounded-lg {
   border-radius: 0.5rem;
+}
+.rounded-md {
+  border-radius: 0.375rem;
+}
+.border {
+  border-width: 1px;
 }
 .bg-gray-100 {
   --tw-bg-opacity: 1;
@@ -1179,6 +1454,9 @@ video {
 }
 .p-10 {
   padding: 2.5rem;
+}
+.p-2 {
+  padding: 0.5rem;
 }
 .p-3 {
   padding: 0.75rem;
@@ -1226,9 +1504,16 @@ video {
 .text-\[44px\] {
   font-size: 44px;
 }
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+.font-bold {
+  font-weight: 700;
 }
 .font-medium {
   font-weight: 500;
@@ -1257,11 +1542,19 @@ video {
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.hover\:bg-gray-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
 .hover\:bg-sky-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(224 242 254 / var(--tw-bg-opacity, 1));
 }
 @media (min-width: 768px) {
+
+  .md\:mt-8 {
+    margin-top: 2rem;
+  }
 
   .md\:w-2\/5 {
     width: 40%;
@@ -1273,6 +1566,10 @@ video {
 
   .md\:flex-row {
     flex-direction: row;
+  }
+
+  .md\:p-6 {
+    padding: 1.5rem;
   }
 
   .md\:px-10 {
