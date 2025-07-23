@@ -1444,3 +1444,70 @@ router.get("/", (req, res) => {
 
 - The `login` and `logout` functinality are now finished.
 - You can try to log in by navigating the `/login` URL from browser.
+
+## PROTECTING ROUTES WITH MIDDLEWARE
+
+- Now that user authentication is completed, it's time to add a verification process each time the user wants to access a route that requires authentication.
+- This can be done by using an **Express Middleware**, so let's learn about middleware first.
+  
+### Express Middleware Explained
+
+- In Express, **Middlewares** are functions that have access to the `request`,`response` and `next` objects.
+- These objects are defined as `req`,`res` and `next` in our functions.
+- Express automatically sends these data when it receives an HTTP request.
+- An Express application is essentially a series of middleware function calls.
+- The order of the middleware is determined by the position of `app.use()` function we defined in our `index.js` file.
+- This is why you need to place your specific routes above general routes like this:
+  
+```js
+app.use("/dashboard", dashboardRouter);
+
+app.use("/{*any}", (req, res) => {
+    res.render("index", { message: "Page Not Found", title: undefined });
+});
+```
+
+- here, we direct fire the **[https:localhost:3000/dashboard](http://localhost:3000/dashboard)** URL then we simply shows the dashboard page without login so this is not valid.
+- this is unauthorized user access for dashboard page.
+- If you switch the route position like this:
+
+```js
+app.use("/{*any}", (req, res) => {
+    res.render("index", { message: "Page Not Found", title: undefined });
+});
+
+app.use("/dashboard", dashboardRouter);
+```
+
+- Then any request will match the `*` route, so no request will reach the `/dashboard` route.
+
+### Adding Verification Middleware
+
+- To protect routes from ***unauthenticated users***, you need to create a middleware that verifies the `session` object that's included in every request.
+- When this `session` object contains a valid `userId`, the request is passed to the `next()` middleware.
+- If the `session` isn't valid, then we redirect to the `/login` page.
+- Inside your `libs/` folder, create a new file named `middleware.js` and write the following code:
+
+```js
+const verifyUser = (req, res, next) => {
+    if (!req.session.userId) return res.redirect("/login");
+    next();
+};
+
+module.exports = {
+    verifyUser,
+};
+```
+
+- The `verifyUser()` middleware will check whether there's a valid `userId` property in the `req.session` object.
+- When there's no `userId` property, then function redirects to the login page.
+- Now use this middleware on the dashboard route.
+- Open the `index.js` file, import the middleware, and place it in the `app.use('/dashboard')` call as follows:
+  
+```js
+const { verifyUser } = require("./libs/middleware");
+
+// ...
+
+app.use("/dashboard", verifyUser, dashboardRouter);
+```

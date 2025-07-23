@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const session = require("express-session");
 const flash = require("connect-flash");
+const { verifyUser } = require("./libs/middleware");
 
 require("dotenv").config();
 require("./libs/dbConnect");
@@ -33,13 +34,13 @@ app.use(flash());
 // });
 
 app.use("/", userRouter);
-app.use("/dashboard", dashboardRouter);
+app.use("/dashboard", verifyUser, dashboardRouter);
 // app.get("*", (req, res) => {
 // 	res.status(404).render("index", { message: "Not Found" });
 // });
 // REPLACING
-app.get("/{*any}", (req, res) => {
-	res.render("index", { message: "Page Not Found" });
+app.use("/{*any}", (req, res) => {
+	res.render("index", { message: "Page Not Found", title: undefined });
 });
 
 const PORT = 3000;
@@ -54,4 +55,4 @@ app.listen(PORT, () => {
 
 // npm run devcss
 
-// https://github.com/codewithnathan97/finly/tree/chapter-10
+// https://github.com/codewithnathan97/finly/tree/chapter-11
