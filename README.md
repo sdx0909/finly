@@ -1516,13 +1516,15 @@ app.use("/dashboard", verifyUser, dashboardRouter);
 
 ### Creating Middleware to Protect Login and Sign Up Routes
 
-- Currently users can still access the login and sign up pages even after they are authenticated.
-- to improve the user experience, let's set up a middleware that redirect authenticated users to the dashboard when they are access the login or sign up page.
+- Currently users can still access the `/login` and `/signup` pages **even after they are authenticated.**
+- means if the user is logged-in and he try to open the `/login` or `/signup` page then it still opens these pages this is wrong.
+- to improve the user experience, let's set up a middleware that redirect authenticated users to the `/dashboard` when they are access the `/login` or `/signup` page.
 - In your `middleware.js` file, create a new middleware named `redirectAuthenticated()` as follows:
 
 ```js
 const redirectAuthenticated = (req, res, next) => {
     if (req.session.userId) return res.redirect("/dashboard");
+    next();
 };
 
 module.exports = {
@@ -1530,3 +1532,19 @@ module.exports = {
     redirectAuthenticated,
 };
 ```
+
+- Import the middleware inside the `user.route.js` file, then place it in front of the `/signup` and `/login` page as:
+  
+```js
+const { redirectAuthenticated } = require("../libs/middleware");
+
+router.get("/signup", redirectAuthenticated, (req, res) => {
+    // res.render()...
+});
+
+router.get("/login", redirectAuthenticated, (req, res) => {
+    // res.render() ...
+});
+```
+
+- Now whenever authenticated users can access the `/signup` or `/login` page, they will be redirected to the `/dashboard` page.
