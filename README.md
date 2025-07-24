@@ -1679,6 +1679,9 @@ module.exports = {
 </html>
 ```
 
+- In this template, we use the `type` variable value to render either the `customerData` or `customerForm` template.
+- `customerData` template will show existing customers along with some buttons to modify the data.
+- the `customerForm` template will render a form to create a new customer or update an existing one.
 - Next, in your `views/partials` folder, create the `customerData.ejs` file and write the code below:
 
 ```html
@@ -1758,13 +1761,15 @@ module.exports = {
     </td>
   </tr>
   <% }); %>
-</tbody>
+  </tbody>
 </table>
 </div>
 ```
 
-- The table above will show the customer data, then show two buttons: one for editing the customer, and one for deleting the customer.
-- after that, you need to create a `<dialog>` element that will be used as the model.
+- The table above will show the customer data, then show two buttons: one for `editing` the customer, and one for `deleting` the customer.
+- Notice that on the Delete button, there's an `onclick` attribute that calls the `deleteModel()` function.
+- The `deleteModel()` function is used to ask for confirmation from users that they really want to delete the customer data.
+- after that, you need to create a `<dialog>` element that will be used as the `modal`.
 - You can place this element at the bottom of the template file:
   
 ```html
@@ -1792,3 +1797,290 @@ module.exports = {
   }
 </script>
 ```
+
+- The function simply sets the `action` attribute of the `delete-form` that we created inside the modal, then shows that modal.
+- When user clicks on `Yes`, then the customer data will be deleted. Otherwise, the modal is simply disabled again.
+- Next, you need to create the `customerForm` template. this will be a simple form with four inoputs as:
+  
+```html
+<h1 class=" mb-4 text-xl md:text-2xl"><%- title %></h1>
+<form action="<%- formAction %>" method="post">
+  <div class="rounded-md bg-slate-100 p-4 md:p-6">
+    <div class="flex flex-col gap-4">
+      <%- include('../partials/formErrors') %>
+      <div class="form-control w-full gap-2"><span class="label-text">Customer Name</span>
+        <label for="name" class="input input-bordered flex items-center gap-2">
+          <i class="fa-regular fa-user"></i>
+          <input id="name" name="name" type="text" class="grow" placeholder="John Doe" value="<%= customer?.name || '' %>" />
+        </label>
+      </div>
+      <div class="form-control w-full gap-2"><span class="label-text">Email</span>
+        <label for="email" class="input input-bordered flex items-center gap-2">
+          <i class="fa-regular fa-envelope"></i>
+          <input id="email" name="email" type="email" class="grow" placeholder="user@mail.com" value="<%= customer?.email || '' %>" />
+        </label>
+      </div>
+      <div class="form-control w-full gap-2"><span class="label-text">Phone</span>
+        <label for="phone" class="input input-bordered flex items-center gap-2">
+          <i class="fa-solid fa-phone"></i>
+          <input id="phone" name="phone" type="tel" class="grow" placeholder="+1223456" value="<%= customer?.phone || '' %>" />
+        </label>
+      </div>
+      <div class="form-control w-full gap-2"><span class="label-text">Address</span>
+        <label for="address" class="input input-bordered flex items-center gap-2">
+          <i class="fa-regular fa-address-card"></i>
+          <input id="address" name="address" type="text" class="grow" placeholder="1 West Pearce St, Richmond Hill, ON L4B 3K3, Canada" value="<%= customer?.address || '' %>" />
+        </label>
+      </div>
+    </div>
+    <div class="mt-6 flex justify-end gap-4">
+      <a class="btn btn-ghost" href="/dashboard/customers">Cancel</a>
+      <button type="submit" class="btn btn-primary">
+        <%= title %>
+      </button>
+    </div>
+</form>
+```
+
+- Now, the view is completed. Let's continue with adding the routes.
+
+### Creating the Customer Routes
+
+- in the `routes/` folder, create a `customer.route.js` file and add the following code:
+  
+```js
+const express = require("express");
+const router = express.Router();
+
+const {
+  showCustomers,
+} = require("../controllers/customer.controller");
+
+
+// NESTED-ROUTE --> '/dashboard/customers'
+router.get("/",showCustomers);
+
+module.exports = router;
+```
+
+- The customer routes will be nested below the `/dashboard` route, so you need to import this route on the `dashboard.route.js` file:
+  
+```js
+const express = require("express");
+const router = express.Router();
+
+const customerRouter = require("./customer.route");
+
+// router.get() ...
+
+// NESTING ROUTE -->  '/dashboard/customers'
+router.use("/customers",customerRouter)
+
+module.exports = router;
+```
+
+- Alright, now you can navigate to the `/customers` route, but there's only an empty table there for now:
+- for that we need to enable the users to create a new customer.
+
+### Creating New Customers
+
+- Back to the `customer.controller.js` file, add a function to create a customer as follows:
+
+```js
+const createCustomer = async (req,res) => {
+  const validationErrors = validationResult(req);
+  if(!validationErrors.isEmpty()){
+    const errors = validationErrors.array();
+    req.flash('errors',errors);
+    req.flash('data',req.body);
+    return res.redirect("create");
+  }
+
+  // creating customer
+  const newCustomer = req.body;
+  newCustomer.owner = req.session.userId;
+
+  await Customer.create(newCustomer);
+  req.flash('info',{
+    message:"Customer Created",
+    type: "success"
+  });
+
+  res.redirect("/dashboard/customers");
+}
+
+// Update the exports module
+module.exports = {
+  showCustomers,
+  createCustomer,
+  validateCustomer,
+};
+```
+
+- This function will run after the validator, so is will check on the validatio results.
+- If there's any error, we redirect the user to the create page. Othewise, we set the `newCustomer` data and call the `Customer.create()` method to insert the customer to the database.
+- After that, we simply set the `info` message and redirect the user to the customers page.
+
+### Add Create Routes
+
+- Next, add the `GET` and `POST` routes to the `customer.routes.js` file:
+
+```js
+const {
+  showCustomers,
+  createCustomer,
+  validateCustomer
+} = require("../controllers/customer.controller");
+
+const { validate } = require("../libs/models/user.model");
+
+// NESTED-ROUTE:: '/dashboard/customers'
+router.get("/",showCustomers);
+
+// ROUTE:: '/dashboard/customers/create'
+router.get('/create',(req,res) => {
+  res.render('pages/customers', {
+    title:'Create Customer',
+    formAction: 'create',
+    type:'form',
+    customer: req.flash('data')[0],
+    errors: req.flash('errors'),
+  })
+});
+
+router.post('/create',validateCustomer,createCustomer);
+
+module.exports = router;
+```
+
+- Now if you press the `+ New Customer` button on the customers page, you will be shown the customer form:
+- Fill out the form and submit it, and you'll see the customer data shown in the table.
+- Alright, the next step is to update the customers.
+
+### Updating Existing Customer
+
+- in the customer controller, **create a function to show existing customer data on the form**:
+- `customer.controller.js`
+
+```js
+const editCustomer = async (req,res) => {
+  const customerId = req.params.id;
+  const customer = await Customer.findById(customerId);
+
+  res.render('pages/customers',{
+    title: 'Edit Customer',
+    type: 'form',
+    formAction: 'edit',
+    customer: req.flash('data')[0] || customer,
+    errors: req.flash('errors'),
+  });
+}
+```
+
+- This function will be used for the `GET` route when editing customers.
+- Next, create a function that will handle the `POST` route.
+
+```js
+const updateCustomer = async (req,res) => {
+  const validationErrors = validationResult(req);
+  if(!validationErrors.isEmpty()){
+    const errors = validationErrors.array();
+    req.flash("errors",errors);
+    req.flash('data',req.body);
+    req.redirect('edit');
+  }
+
+  const customerId = req.params.id;
+  const customerData = req.body;
+
+  await Customer.findByIdAndUpdate(customerId,customerData);
+  req.flash('info',{
+    message:"Customer Updated",
+    type:"success",
+  });
+  res.redirect('/dashboard/customers');
+}
+```
+
+- The function above will call the `Customer.findByIdAndUpdate()` method when the request data passes the validation process.
+- also, don't forgot to update the `module.exports` content:
+
+```js
+module.exports = {
+  showCustomers,
+  editCustomer,
+  updateCustomer,
+  createCustomer,
+  validateCustomer,
+};
+```
+
+- Alright, now you need to create the update routes in `customer.route.js` file:
+  
+```js
+const {
+  showCustomers,
+  editCustomer,
+  updateCustomer,
+  createCustomer,
+  deleteCustomer,
+  validateCustomer
+} = require("../controllers/customer.controller");
+const { validate } = require("../libs/models/user.model");
+
+// other routes
+
+router.get('/:id/edit',editCustomer);
+
+router.post('/:id/edit',validateCustomer,updateCustomer);
+```
+
+- Now when you click on the edit button, you will be shown a form populated with existing customer data.
+- You can update the data as you need, then click the submit button to update the database.
+
+### Deleting the Customers
+
+- The last step is to add the delete customer function. This function is very simple:
+  
+```js
+const deleteCustomer = async (req,res) => {
+  const customerId = req.params.id;
+
+  await Customer.findByIdAndDelete(customerId);
+  req.flash('info',{
+    message: 'Customer Deleted',
+    type: 'success',
+  });
+  res.redirect("/dashboard/customers");
+}
+
+module.exports = {
+  showCustomers,
+  editCustomer,
+  deleteCustomer,
+  updateCustomer,
+  createCustomer,
+  validateCustomer,
+};
+```
+
+- The function will call the `findByIdAndDelete()` method to delete the customer data.
+- Next, create the route to delete customers as shown below:
+  
+```js
+const {
+  showCustomers,
+  editCustomer,
+  updateCustomer,
+  createCustomer,
+  deleteCustomer,
+  validateCustomer
+} = require("../controllers/customer.controller");
+
+// ...
+
+router.post('/:id/delete',deleteCustomer);
+```
+
+- Here, the `id` of the customer that wants to be deleted will be read from the `URL` parameter, which we have set in the `deleteModal()` function.
+- Now all functionalities relating to the customer data is finished. We still have the `search` function, which we will add later.
