@@ -1,4 +1,5 @@
 const Customer = require("../libs/models/customer.model");
+const Invoice = require("../libs/models/invoice.model");
 
 const { body, validationResult } = require("express-validator");
 
@@ -21,77 +22,79 @@ const showCustomers = async (req, res) => {
 	});
 };
 
-const createCustomer = async (req,res) => {
-  const validationErrors = validationResult(req);
-  if(!validationErrors.isEmpty()){
-    const errors = validationErrors.array();
-    req.flash('errors',errors);
-    req.flash('data',req.body);
-    return res.redirect("create");
-  }
+const createCustomer = async (req, res) => {
+	const validationErrors = validationResult(req);
+	if (!validationErrors.isEmpty()) {
+		const errors = validationErrors.array();
+		req.flash("errors", errors);
+		req.flash("data", req.body);
+		return res.redirect("create");
+	}
 
-  // creating customer
-  const newCustomer = req.body;
-  newCustomer.owner = req.session.userId;
+	// creating customer
+	const newCustomer = req.body;
+	newCustomer.owner = req.session.userId;
 
-  await Customer.create(newCustomer);
-  req.flash('info',{
-    message:"Customer Created",
-    type: "success"
-  });
+	await Customer.create(newCustomer);
+	req.flash("info", {
+		message: "Customer Created",
+		type: "success",
+	});
 
-  res.redirect("/dashboard/customers");
-}
+	res.redirect("/dashboard/customers");
+};
 
-const editCustomer = async (req,res) => {
-  const customerId = req.params.id;
-  const customer = await Customer.findById(customerId);
+const editCustomer = async (req, res) => {
+	const customerId = req.params.id;
+	const customer = await Customer.findById(customerId);
 
-  res.render('pages/customers',{
-    title: 'Edit Customer',
-    type: 'form',
-    formAction: 'edit',
-    customer: req.flash('data')[0] || customer,
-    errors: req.flash('errors'),
-  });
-}
+	res.render("pages/customers", {
+		title: "Edit Customer",
+		type: "form",
+		formAction: "edit",
+		customer: req.flash("data")[0] || customer,
+		errors: req.flash("errors"),
+	});
+};
 
-const updateCustomer = async (req,res) => {
-  const validationErrors = validationResult(req);
-  if(!validationErrors.isEmpty()){
-    const errors = validationErrors.array();
-    req.flash("errors",errors);
-    req.flash('data',req.body);
-    req.redirect('edit');
-  }
+const updateCustomer = async (req, res) => {
+	const validationErrors = validationResult(req);
+	if (!validationErrors.isEmpty()) {
+		const errors = validationErrors.array();
+		req.flash("errors", errors);
+		req.flash("data", req.body);
+		req.redirect("edit");
+	}
 
-  const customerId = req.params.id;
-  const customerData = req.body;
+	const customerId = req.params.id;
+	const customerData = req.body;
 
-  await Customer.findByIdAndUpdate(customerId,customerData);
-  req.flash('info',{
-    message:"Customer Updated",
-    type:"success",
-  });
-  res.redirect('/dashboard/customers');
-}
+	await Customer.findByIdAndUpdate(customerId, customerData);
+	req.flash("info", {
+		message: "Customer Updated",
+		type: "success",
+	});
+	res.redirect("/dashboard/customers");
+};
 
-const deleteCustomer = async (req,res) => {
-  const customerId = req.params.id;
+const deleteCustomer = async (req, res) => {
+	const customerId = req.params.id;
 
-  await Customer.findByIdAndDelete(customerId);
-  req.flash('info',{
-    message: 'Customer Deleted',
-    type: 'success',
-  });
-  res.redirect("/dashboard/customers");
-}
+	// delete invoices by that customer
+	await Invoice.deleteMany({ customer: customerId });
+	await Customer.findByIdAndDelete(customerId);
+	req.flash("info", {
+		message: "Customer Deleted",
+		type: "success",
+	});
+	res.redirect("/dashboard/customers");
+};
 
 module.exports = {
-  showCustomers,
-  editCustomer,
-  deleteCustomer,
-  updateCustomer,
-  createCustomer,
+	showCustomers,
+	editCustomer,
+	deleteCustomer,
+	updateCustomer,
+	createCustomer,
 	validateCustomer,
 };

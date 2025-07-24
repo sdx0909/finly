@@ -2084,3 +2084,13 @@ router.post('/:id/delete',deleteCustomer);
 
 - Here, the `id` of the customer that wants to be deleted will be read from the `URL` parameter, which we have set in the `deleteModal()` function.
 - Now all functionalities relating to the customer data is finished. We still have the `search` function, which we will add later.
+
+## HANDLING INVOICES DATA
+
+### Creating the Invoices Model
+
+- Inside the `models/` folder, create a new file named `invoice.model.js` and write the code below:
+
+```js
+
+```
