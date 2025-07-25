@@ -40,7 +40,7 @@ app.use("/dashboard", verifyUser, dashboardRouter);
 // });
 // REPLACING
 app.use("/{*any}", (req, res) => {
-	res.render("index", { message: "Page Not Found", title: undefined });
+	res.status(404).render("index", { message: "Not Found", title: "Not Found" });
 });
 
 const PORT = 3000;

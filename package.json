@@ -1,44 +1,45 @@
 {
-  "name": "finly",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "devcss": "postcss public/styles/tailwind.css -o public/styles/style.css -w"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sdx0909/finly.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/sdx0909/finly/issues"
-  },
-  "homepage": "https://github.com/sdx0909/finly#readme",
-  "devDependencies": {
-    "autoprefixer": "^10.4.21",
-    "daisyui": "^5.0.46",
-    "nodemon": "^3.1.10",
-    "postcss": "^8.5.6",
-    "postcss-cli": "^11.0.1",
-    "tailwindcss": "^3.4.17"
-  },
-  "dependencies": {
-    "bcrypt": "^6.0.0",
-    "connect-flash": "^0.1.1",
-    "dotenv": "^17.2.0",
-    "ejs": "^3.1.10",
-    "express": "^5.1.0",
-    "express-session": "^1.18.2",
-    "express-validator": "^7.2.1",
-    "mongodb": "^6.17.0",
-    "mongoose": "^8.16.4",
-    "morgan": "^1.10.0"
-  }
+	"name": "finly",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon index.js",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"css": "postcss public/styles/tailwind.css -o public/styles/style.css",
+		"devcss": "postcss public/styles/tailwind.css -o public/styles/style.css -w"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sdx0909/finly.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"bugs": {
+		"url": "https://github.com/sdx0909/finly/issues"
+	},
+	"homepage": "https://github.com/sdx0909/finly#readme",
+	"devDependencies": {
+		"autoprefixer": "^10.4.21",
+		"daisyui": "^5.0.46",
+		"nodemon": "^3.1.10",
+		"postcss": "^8.5.6",
+		"postcss-cli": "^11.0.1",
+		"tailwindcss": "^3.4.17"
+	},
+	"dependencies": {
+		"bcrypt": "^6.0.0",
+		"connect-flash": "^0.1.1",
+		"dotenv": "^17.2.0",
+		"ejs": "^3.1.10",
+		"express": "^5.1.0",
+		"express-session": "^1.18.2",
+		"express-validator": "^7.2.1",
+		"mongodb": "^6.17.0",
+		"mongoose": "^8.16.4",
+		"morgan": "^1.10.0"
+	}
 }
