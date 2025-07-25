@@ -674,8 +674,7 @@ module.exports = router;
  <%- include('../partials/head') %>
  <body>
   <main
-   class="flex mx-auto w-full max-w-[460px] flex-col space-y-2.5 p-4 mt-12"
-  >
+   class="flex mx-auto w-full max-w-[460px] flex-col space-y-2.5 p-4 mt-12">
    <div class="flex h-24 w-full items-end rounded-lg bg-green-500 p-3">
     <div class="flex flex-row items-center text-white">
      <i aria-hidden="true" class="fa-3x fa-solid fa-coins pr-4"> </i>
@@ -708,8 +707,7 @@ module.exports = router;
     placeholder="Email"
     <!--
 				value-element
-				--
-			/>
+				-- />
 			/>
 		</label>
 		<label class="input input-bordered flex items-center gap-2">
@@ -721,8 +719,7 @@ module.exports = router;
 				placeholder="Password"
 				<!--
 				value-element
-				--
-			/>
+				-- />
 			/>
 		</label>
 		<label class="input input-bordered flex items-center gap-2">
@@ -734,8 +731,7 @@ module.exports = router;
 				placeholder="Repeat Password"
 				<!--
 				value-element
-				--
-			/>
+				-- />
 			/>
 		</label>
 	</div>
@@ -760,8 +756,7 @@ module.exports = router;
 	<link href="/styles/style.css" rel="stylesheet" />
 	<link
 		rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-	/>
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 	<!-- adding toastify link further-->
 </head>
 ```
@@ -1036,24 +1031,21 @@ router.get("/signup", (req, res) => {
  type="email"
  class="grow"
  placeholder="Email"
- value="<%= user?.email || '' %>"
-/>
+ value="<%= user?.email || '' %>" />
 
 <input
  name="password"
  type="password"
  class="grow"
  placeholder="Password"
- value="<%= user?.password || '' %>"
-/>
+ value="<%= user?.password || '' %>" />
 
 <input
  name="repeatPassword"
  type="password"
  class="grow"
  placeholder="Repeat Password"
- value="<%= user?.repeatPassword || '' %>"
-/>
+ value="<%= user?.repeatPassword || '' %>" />
 ```
 
 - Now when the form fails to submit, the error messages will be displayed and the input values won't be removed.
@@ -1214,8 +1206,7 @@ router.get("/", (req, res) => {
 ```html
 <div class="fixed w-56 bg-white shadow-md h-screen flex flex-col">
  <div
-  class="h-40 p-4 bg-green-500 text-white text-4xl flex justify-start items-end"
- >
+  class="h-40 p-4 bg-green-500 text-white text-4xl flex justify-start items-end">
   <i aria-hidden="true" class="fa-solid fa-coins pr-4"></i>
   Finly
  </div>
@@ -1282,8 +1273,7 @@ router.get("/", (req, res) => {
  <%- include('../partials/head') %>
  <body>
   <main
-   class="flex mx-auto w-full max-w-[400px] flex-col space-y-2.5 p-4 mt-12"
-  >
+   class="flex mx-auto w-full max-w-[400px] flex-col space-y-2.5 p-4 mt-12">
    <div class="flex h-24 w-full items-end rounded-lg bg-green-500 p-3">
     <div class="flex flex-row items-center text-white">
      <i aria-hidden="true" class="fa-3x fa-solid fa-coins pr-4"> </i>
@@ -1301,8 +1291,7 @@ router.get("/", (req, res) => {
        type="email"
        class="grow"
        placeholder="Email"
-       value="<%= user?.email || '' %>"
-      />
+       value="<%= user?.email || '' %>" />
      </label>
      <label class="input input-bordered flex items-center gap-2">
       <i class="opacity-70 fa-solid fa-key"> </i>
@@ -1311,8 +1300,7 @@ router.get("/", (req, res) => {
        type="password"
        class="grow"
        placeholder="Password"
-       value="<%= user?.password || '' %>"
-      />
+       value="<%= user?.password || '' %>" />
      </label>
     </div>
     <button class="btn btn-primary w-full">
@@ -1694,16 +1682,14 @@ module.exports = {
    <div class="relative flex flex-1 flex-shrink-0">
     <label
      for="search"
-     class="input input-bordered flex items-center gap-2 w-full"
-    >
+     class="input input-bordered flex items-center gap-2 w-full">
      <i class="fa-solid fa-magnifying-glass"></i>
      <input
       id="search"
       name="search"
       type="text"
       class="grow"
-      placeholder="Search customers..."
-     />
+      placeholder="Search customers..." />
     </label>
    </div>
    <a class="btn btn-primary" href="customers/create">
@@ -1721,48 +1707,42 @@ module.exports = {
 
 ```html
 <div class="mt-6 overflow-x-auto bg-white rounded-lg p-2">
-<table class="table">
+ <table class="table">
   <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Address</th>
-      <th>Phone</th>
-      <th></th>
-    </tr>
+   <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Address</th>
+    <th>Phone</th>
+    <th></th>
+   </tr>
   </thead>
   <tbody>
-  <% customers.forEach(function(customer){ %>
-  <tr>
-    <td> <%= customer.name %> </td>
-    <td> <%= customer.email %> </td>
-    <td> <%= customer.address %> </td>
-    <td> <%= customer.phone %> </td>
+   <% customers.forEach(function(customer){ %>
+   <tr>
+    <td><%= customer.name %></td>
+    <td><%= customer.email %></td>
+    <td><%= customer.address %></td>
+    <td><%= customer.phone %></td>
     <td>
-      <div class="flex justify-end gap-3">
-        <a 
-          class="rounded-md border p-2 hover:bg-gray-100" 
-          href="customers/<%= customer._id %>/edit"
-        >
-          <i 
-            class="fa-solid fa-pen-to-square fa-lg">
-          </i>
-        </a>
-        <button 
-          class="rounded-md border p-2 hover:bg-gray-100" 
-          onclick="deleteModal('<%= customer._id %>')"
-        >
-          <span class="sr-only">
-            Delete
-          </span>
-          <i class="fa-solid fa-trash fa-lg"></i>
-        </button>
-      </div>
+     <div class="flex justify-end gap-3">
+      <a
+       class="rounded-md border p-2 hover:bg-gray-100"
+       href="customers/<%= customer._id %>/edit">
+       <i class="fa-solid fa-pen-to-square fa-lg"> </i>
+      </a>
+      <button
+       class="rounded-md border p-2 hover:bg-gray-100"
+       onclick="deleteModal('<%= customer._id %>')">
+       <span class="sr-only"> Delete </span>
+       <i class="fa-solid fa-trash fa-lg"></i>
+      </button>
+     </div>
     </td>
-  </tr>
-  <% }); %>
+   </tr>
+   <% }); %>
   </tbody>
-</table>
+ </table>
 </div>
 ```
 
@@ -1771,22 +1751,24 @@ module.exports = {
 - The `deleteModel()` function is used to ask for confirmation from users that they really want to delete the customer data.
 - after that, you need to create a `<dialog>` element that will be used as the `modal`.
 - You can place this element at the bottom of the template file:
-  
+
 ```html
 <dialog id="delete-modal" class="modal">
-  <div class="modal-box">
-    <h3 class="font-bold text-lg">Are you sure?</h3>
-    <p class="py-4">All invoices related to the customer will be deleted</p>
-    <div class="modal-action">
-      <form id='delete-form' method="post"><button class="btn btn-danger">Yes</button></form>
-      <form method="dialog"><button class="btn">Cancel</button></form>
-    </div>
+ <div class="modal-box">
+  <h3 class="font-bold text-lg">Are you sure?</h3>
+  <p class="py-4">All invoices related to the customer will be deleted</p>
+  <div class="modal-action">
+   <form id="delete-form" method="post">
+    <button class="btn btn-danger">Yes</button>
+   </form>
+   <form method="dialog"><button class="btn">Cancel</button></form>
   </div>
+ </div>
 </dialog>
 ```
 
 - Next, add a `<script>` element and define the `deleteModel()` function as:
-  
+
 ```js
 <script>
   function deleteModal(customerId){
@@ -1801,7 +1783,7 @@ module.exports = {
 - The function simply sets the `action` attribute of the `delete-form` that we created inside the modal, then shows that modal.
 - When user clicks on `Yes`, then the customer data will be deleted. Otherwise, the modal is simply disabled again.
 - Next, you need to create the `customerForm` template. this will be a simple form with four inoputs as:
-  
+
 ```html
 <h1 class=" mb-4 text-xl md:text-2xl"><%- title %></h1>
 <form action="<%- formAction %>" method="post">
@@ -1847,24 +1829,21 @@ module.exports = {
 ### Creating the Customer Routes
 
 - in the `routes/` folder, create a `customer.route.js` file and add the following code:
-  
+
 ```js
 const express = require("express");
 const router = express.Router();
 
-const {
-  showCustomers,
-} = require("../controllers/customer.controller");
-
+const { showCustomers } = require("../controllers/customer.controller");
 
 // NESTED-ROUTE --> '/dashboard/customers'
-router.get("/",showCustomers);
+router.get("/", showCustomers);
 
 module.exports = router;
 ```
 
 - The customer routes will be nested below the `/dashboard` route, so you need to import this route on the `dashboard.route.js` file:
-  
+
 ```js
 const express = require("express");
 const router = express.Router();
@@ -1874,7 +1853,7 @@ const customerRouter = require("./customer.route");
 // router.get() ...
 
 // NESTING ROUTE -->  '/dashboard/customers'
-router.use("/customers",customerRouter)
+router.use("/customers", customerRouter);
 
 module.exports = router;
 ```
@@ -1887,33 +1866,33 @@ module.exports = router;
 - Back to the `customer.controller.js` file, add a function to create a customer as follows:
 
 ```js
-const createCustomer = async (req,res) => {
-  const validationErrors = validationResult(req);
-  if(!validationErrors.isEmpty()){
-    const errors = validationErrors.array();
-    req.flash('errors',errors);
-    req.flash('data',req.body);
-    return res.redirect("create");
-  }
+const createCustomer = async (req, res) => {
+ const validationErrors = validationResult(req);
+ if (!validationErrors.isEmpty()) {
+  const errors = validationErrors.array();
+  req.flash("errors", errors);
+  req.flash("data", req.body);
+  return res.redirect("create");
+ }
 
-  // creating customer
-  const newCustomer = req.body;
-  newCustomer.owner = req.session.userId;
+ // creating customer
+ const newCustomer = req.body;
+ newCustomer.owner = req.session.userId;
 
-  await Customer.create(newCustomer);
-  req.flash('info',{
-    message:"Customer Created",
-    type: "success"
-  });
+ await Customer.create(newCustomer);
+ req.flash("info", {
+  message: "Customer Created",
+  type: "success",
+ });
 
-  res.redirect("/dashboard/customers");
-}
+ res.redirect("/dashboard/customers");
+};
 
 // Update the exports module
 module.exports = {
-  showCustomers,
-  createCustomer,
-  validateCustomer,
+ showCustomers,
+ createCustomer,
+ validateCustomer,
 };
 ```
 
@@ -1927,28 +1906,28 @@ module.exports = {
 
 ```js
 const {
-  showCustomers,
-  createCustomer,
-  validateCustomer
+ showCustomers,
+ createCustomer,
+ validateCustomer,
 } = require("../controllers/customer.controller");
 
 const { validate } = require("../libs/models/user.model");
 
 // NESTED-ROUTE:: '/dashboard/customers'
-router.get("/",showCustomers);
+router.get("/", showCustomers);
 
 // ROUTE:: '/dashboard/customers/create'
-router.get('/create',(req,res) => {
-  res.render('pages/customers', {
-    title:'Create Customer',
-    formAction: 'create',
-    type:'form',
-    customer: req.flash('data')[0],
-    errors: req.flash('errors'),
-  })
+router.get("/create", (req, res) => {
+ res.render("pages/customers", {
+  title: "Create Customer",
+  formAction: "create",
+  type: "form",
+  customer: req.flash("data")[0],
+  errors: req.flash("errors"),
+ });
 });
 
-router.post('/create',validateCustomer,createCustomer);
+router.post("/create", validateCustomer, createCustomer);
 
 module.exports = router;
 ```
@@ -1963,43 +1942,43 @@ module.exports = router;
 - `customer.controller.js`
 
 ```js
-const editCustomer = async (req,res) => {
-  const customerId = req.params.id;
-  const customer = await Customer.findById(customerId);
+const editCustomer = async (req, res) => {
+ const customerId = req.params.id;
+ const customer = await Customer.findById(customerId);
 
-  res.render('pages/customers',{
-    title: 'Edit Customer',
-    type: 'form',
-    formAction: 'edit',
-    customer: req.flash('data')[0] || customer,
-    errors: req.flash('errors'),
-  });
-}
+ res.render("pages/customers", {
+  title: "Edit Customer",
+  type: "form",
+  formAction: "edit",
+  customer: req.flash("data")[0] || customer,
+  errors: req.flash("errors"),
+ });
+};
 ```
 
 - This function will be used for the `GET` route when editing customers.
 - Next, create a function that will handle the `POST` route.
 
 ```js
-const updateCustomer = async (req,res) => {
-  const validationErrors = validationResult(req);
-  if(!validationErrors.isEmpty()){
-    const errors = validationErrors.array();
-    req.flash("errors",errors);
-    req.flash('data',req.body);
-    req.redirect('edit');
-  }
+const updateCustomer = async (req, res) => {
+ const validationErrors = validationResult(req);
+ if (!validationErrors.isEmpty()) {
+  const errors = validationErrors.array();
+  req.flash("errors", errors);
+  req.flash("data", req.body);
+  req.redirect("edit");
+ }
 
-  const customerId = req.params.id;
-  const customerData = req.body;
+ const customerId = req.params.id;
+ const customerData = req.body;
 
-  await Customer.findByIdAndUpdate(customerId,customerData);
-  req.flash('info',{
-    message:"Customer Updated",
-    type:"success",
-  });
-  res.redirect('/dashboard/customers');
-}
+ await Customer.findByIdAndUpdate(customerId, customerData);
+ req.flash("info", {
+  message: "Customer Updated",
+  type: "success",
+ });
+ res.redirect("/dashboard/customers");
+};
 ```
 
 - The function above will call the `Customer.findByIdAndUpdate()` method when the request data passes the validation process.
@@ -2007,32 +1986,32 @@ const updateCustomer = async (req,res) => {
 
 ```js
 module.exports = {
-  showCustomers,
-  editCustomer,
-  updateCustomer,
-  createCustomer,
-  validateCustomer,
+ showCustomers,
+ editCustomer,
+ updateCustomer,
+ createCustomer,
+ validateCustomer,
 };
 ```
 
 - Alright, now you need to create the update routes in `customer.route.js` file:
-  
+
 ```js
 const {
-  showCustomers,
-  editCustomer,
-  updateCustomer,
-  createCustomer,
-  deleteCustomer,
-  validateCustomer
+ showCustomers,
+ editCustomer,
+ updateCustomer,
+ createCustomer,
+ deleteCustomer,
+ validateCustomer,
 } = require("../controllers/customer.controller");
 const { validate } = require("../libs/models/user.model");
 
 // other routes
 
-router.get('/:id/edit',editCustomer);
+router.get("/:id/edit", editCustomer);
 
-router.post('/:id/edit',validateCustomer,updateCustomer);
+router.post("/:id/edit", validateCustomer, updateCustomer);
 ```
 
 - Now when you click on the edit button, you will be shown a form populated with existing customer data.
@@ -2041,45 +2020,45 @@ router.post('/:id/edit',validateCustomer,updateCustomer);
 ### Deleting the Customers
 
 - The last step is to add the delete customer function. This function is very simple:
-  
-```js
-const deleteCustomer = async (req,res) => {
-  const customerId = req.params.id;
 
-  await Customer.findByIdAndDelete(customerId);
-  req.flash('info',{
-    message: 'Customer Deleted',
-    type: 'success',
-  });
-  res.redirect("/dashboard/customers");
-}
+```js
+const deleteCustomer = async (req, res) => {
+ const customerId = req.params.id;
+
+ await Customer.findByIdAndDelete(customerId);
+ req.flash("info", {
+  message: "Customer Deleted",
+  type: "success",
+ });
+ res.redirect("/dashboard/customers");
+};
 
 module.exports = {
-  showCustomers,
-  editCustomer,
-  deleteCustomer,
-  updateCustomer,
-  createCustomer,
-  validateCustomer,
+ showCustomers,
+ editCustomer,
+ deleteCustomer,
+ updateCustomer,
+ createCustomer,
+ validateCustomer,
 };
 ```
 
 - The function will call the `findByIdAndDelete()` method to delete the customer data.
 - Next, create the route to delete customers as shown below:
-  
+
 ```js
 const {
-  showCustomers,
-  editCustomer,
-  updateCustomer,
-  createCustomer,
-  deleteCustomer,
-  validateCustomer
+ showCustomers,
+ editCustomer,
+ updateCustomer,
+ createCustomer,
+ deleteCustomer,
+ validateCustomer,
 } = require("../controllers/customer.controller");
 
 // ...
 
-router.post('/:id/delete',deleteCustomer);
+router.post("/:id/delete", deleteCustomer);
 ```
 
 - Here, the `id` of the customer that wants to be deleted will be read from the `URL` parameter, which we have set in the `deleteModal()` function.
@@ -2092,5 +2071,1041 @@ router.post('/:id/delete',deleteCustomer);
 - Inside the `models/` folder, create a new file named `invoice.model.js` and write the code below:
 
 ```js
+const { Schema, model } = require("mongoose");
 
+const InvoiceSchema = new Schema({
+ amount: { type: Number, required: true },
+ date: { type: String, required: true },
+ status: { type: String, required: true },
+ owner: { type: Schema.Types.ObjectId, ref: "User" },
+ customer: { type: Schema.Types.ObjectId, ref: "Customer" },
+});
+
+const Invoice = model("Invoice", InvoiceSchema);
+
+module.exports = Invoice;
 ```
+
+- The `invoice` model is connected to both the `user` and `customer` models, so there are `owner` and `customer` fields in this model.
+- Later in the form, we can select the `customer` that we want to pass the `invoice` to.
+  
+### Creating the Invoice Controller
+
+- The next step is to create the controller. In the `controllers/ folder`, create a new file named `invoice.controller.js` and import the modules that will be used:
+
+```js
+const Customer = require("../libs/models/customer.model");
+const Invoice = require("../libs/models/invoice.model");
+
+const { body, validationResult } = require("express-validator");
+```
+
+- Next, write the validation logic for invoice data. Let's just make sure that none of the values are empty.
+
+```js
+const validateInvoice = [
+ body("customer", "Select the Customer").notEmpty(),
+ body("amount", "Amout must not be empty").notEmpty(),
+ body("date", "Due Date must not be empty").notEmpty(),
+ body("status", "Select the Status").notEmpty(),
+];
+```
+
+- Agfer that, you need to create a function to show the existing invoices.
+- Let's name it `showInvoices()`:
+  
+```js
+ const showInvoices = async (req, res) => {
+  const query = { owner: req.session.userId };
+  const invoices = await Invoice.find(query);
+  res.render('pages/invoices', {
+    title: 'Invoices',
+    type: 'data',
+    invoices,
+    info: req.flash('info')[0],
+  });
+ };
+```
+
+- Now the function to `showInvoices()` also needs to retrieve `customer` data, so you need to use the `populate()` method from `Mongoose`.
+- The `populate()` method is used to **pull referenced document data**.
+- Using this method, we can **pull the customer name for each invoice we have**.
+- Above the `showInvoices()` function, create a new function named `populateInvoices()` as shown below:
+  
+```js
+const populateInconst populateInvoices = (query) => {
+  return query.populate({
+    path: 'customer',
+    model: Customer,
+    select: '_id name',
+  });
+};
+```
+
+- The `populate()` method is called on the `query` object, which is returned when you call the `find()` method.
+- This means you can call the `populateInvoices()` method and pass `Invoices.find()` as the argument like this:
+
+```js
+const showInvoices = async (req, res) => {
+ const query = { owner: req.session.userId };
+ const { search } = req.query;
+
+ // const invoices = await Invoice.find(query);
+ const invoices = await populateInvoices(Invoice.find(query), search);
+ res.render("pages/invoices", {
+  title: "Invoices",
+  type: "data",
+  invoices,
+  info: req.flash("info")[0],
+ });
+};
+```
+
+- The `customer` field will be transformed into an object with `_id` and `name` properties.
+- We’ll use this object later in the `views`.
+- Export the function from the file as:
+
+```js
+module.exports = {
+ showInvoices,
+}
+```
+
+### Creating the Invoice Views
+
+- Now you need to create the invoice views.
+- Create a new template inside the `views/pages/` folder named `invoices.ejs` and add the following content to it:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head') %>
+  <body class="bg-gray-100">
+    <div class="flex h-screen overflow-hidden">
+      <%- include('../partials/navbar') %>
+      <div class="ml-56 flex-grow p-10 overflow-y-auto">
+        <% if (type === 'data') { %>
+          <%- include('../partials/invoiceData') %>
+          <% } else { %>
+            <%-  include('../partials/invoiceForm') %>
+        <% } %>
+      </div>
+    </div>
+  <%- include('../partials/script') %>
+</body>
+</html>
+```
+
+- Now the next step is to create the `partial-templates`.
+- First, create the `invoiceData.ejs` file.
+- This one is similar to `customersData.ejs` except for
+ the table content:
+
+```html
+<div class="w-full">
+  <div class="flex w-full items-center justify-between">
+    <h1 class="text-2xl"><%= title %></h1>
+  </div>
+  <form>
+    <div class="mt-4 flex items-center justify-between gap-2 md:mt-8">
+      <div class="relative flex flex-1 flex-shrink-0">
+        <label for="search" class="input input-bordered flex items-center gap-2 w-full">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="search" name="search" type="text" class="grow" placeholder="Search invoices..." />
+        </label>
+      </div>
+      <a class="btn btn-primary" href="invoices/create">
+        <i class="fa-solid fa-plus fa-lg mr-2"></i>
+        New Invoice
+      </a>
+    </div>
+  </form>
+  <div class="mt-6 overflow-x-auto bg-white rounded-lg p-2">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Customer Name</th>
+          <th>Amount</th>
+          <th>Due Date</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% invoices.forEach(function(invoice){ %>
+        <tr>
+          <td> <%= invoice.customer.name %> </td>
+          <td> <%= INRupee.format(invoice.amount) %> </td>
+          <td> <%= new Date(invoice.date).toLocaleDateString('en-US') %> </td>
+          <td>
+            <% if(invoice.status === 'paid') { %>
+            <span class="ml-2 badge badge-sm badge-success p-3 gap-3 text-white">
+              Paid <i class="fa-regular fa-circle-check"></i>
+            </span>
+            <% } else { %>
+            <span class="ml-2 badge badge-sm badge-ghost p-3 gap-3">
+              Pending <i class="fa-regular fa-clock"></i>
+            </span>
+            <% } %>
+          </td>
+          <td>
+            <div class="flex justify-end gap-3">
+              <a 
+                class="rounded-md border p-2 hover:bg-gray-100" 
+                href="invoices/<%= invoice._id %>/edit">
+                  <i class="fa-solid fa-pen-to-square fa-lg"></i>
+              </a>
+              <button 
+                class="rounded-md border p-2 hover:bg-gray-100" 
+                onclick="deleteModal('<%= invoice._id %>')">
+                <span class="sr-only">Delete</span><i class="fa-solid fa-trash fa-lg"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<dialog id="delete-modal" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Are you sure?</h3>
+    <p class="py-4">The invoice will be deleted</p>
+    <div class="modal-action">
+      <form id='delete-form' method="post">
+        <button class="btn btn-danger">Yes</button>
+      </form>
+      <form method="dialog">
+        <button class="btn">Cancel</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+<script>
+  function deleteModal(invoiceId) {
+    const modal = document.querySelector('#delete-modal');
+    const deleteForm = document.querySelector('#delete-form');
+    deleteForm.setAttribute('action', `invoices/${invoiceId}/delete`)
+    modal.showModal();
+  }
+</script>
+```
+
+- Next, you need to add the `invoiceForm.ejs` file.
+- The form will show a `datepicker` to the users, so we’re going to use the `vanilla datepicker` library available from **<https://mymth.github.io/vanillajs-datepicker>**
+- Open your `head.ejs` file and add the following CSS library:
+  
+```html
+<link 
+    rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker.min.css"
+/>
+```
+
+- Now in the `partials/` folder, create the `invoiceForm.ejs` template and write the code below in it:
+  
+```html
+<h1 class=" mb-4 text-xl md:text-2xl"><%- title %></h1>
+<form action="<%- formAction %>" method="post">
+  <div class="rounded-md bg-slate-100 p-4 md:p-6">
+    <div class="flex flex-col gap-4">
+      <%- include('../partials/formErrors') %>
+      <div class="form-control w-full gap-2"><span class="label-text">Choose Customer</span>
+        <label for="customer" class="input input-bordered flex items-center gap-2">
+          <i class="fa-regular fa-user"></i>
+          <select class="grow cursor-pointer" name="customer" id="customer">
+            <option value="">Select Customer</option>
+            <% customers.forEach(function(customer){ %>
+            <option value="<%= customer._id %>" 
+              <%= String(invoice?.customer?._id) === String(customer._id) ? 'selected' : '' %>>
+              <%= customer.name %>
+            </option>
+            <% }) %>
+          </select>
+        </label>
+      </div>
+      <div class="form-control w-full gap-2"><span class="label-text">Amount</span>
+        <label for="amount" class="input input-bordered flex items-center gap-2">
+          <i class="fa-solid fa-dollar-sign"></i>
+          <input id="amount" name="amount" type="number" class="grow" placeholder="Enter in USD" value="<%= invoice?.amount || '' %>" />
+        </label>
+      </div>
+      <div class="form-control w-full gap-2"><span class="label-text">Due Date</span>
+        <label for="date" class="input input-bordered flex items-center gap-2">
+          <i class="fa-regular fa-calendar"></i>
+          <input id="date" name="date" type="text" class="grow" placeholder="4/5/2024" value="<%= invoice?.date? new Date(invoice.date).toLocaleDateString('en-US') : '' %>" />
+        </label>
+      </div>
+      <div class="form-control w-full gap-2"><span class="label-text">Status</span>
+        <div for="status" class="input input-bordered flex items-center gap-2">
+          <div class="flex gap-4">
+            <div class="flex items-center">
+              <input type="radio" name="status" id="pending" class="radio" value="pending" <%= invoice?.status === 'pending' ? 'checked' : '' %> />
+              <label for="pending" class="ml-2 badge badge-sm badge-ghost p-3 gap-3">Pending <i class="fa-regular fa-clock"></i></label>
+            </div>
+            <div class="flex items-center">
+              <input type="radio" name="status" id="paid" class="radio" value="paid" <%= invoice?.status === 'paid' ? 'checked' : '' %> />
+              <label for="paid" class="ml-2 badge badge-sm badge-success p-3 gap-3 text-white">Paid <i class="fa-regular fa-circle-check"></i></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 flex justify-end gap-4">
+      <a class="btn btn-ghost" href="/dashboard/invoices">Cancel</a><button type="submit" class="btn btn-primary">
+        <%= title %>
+      </button>
+    </div>
+</form>
+```
+
+- The `form` contains a select input for the customer, a number input for the `amount`, a `datepicker` for the due date, and a `radio input` for the `status`.
+- Next, you need to add the **scripts** to render the **datepicker**:
+
+```html
+<script
+  src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js">
+</script>
+<script>
+  const elem = document.querySelector('#date');
+  const datepicker = new Datepicker(elem, {
+    autohide: true,
+    format: 'm/d/yyyy'
+  });
+</script>
+```
+
+- Here, the `datepicker` is rendered on the `#date` element, which is the `invoice` due date input we’ve added above.
+
+### Creating the Invoice Route
+
+- The next step is to create the invoice route file. You already know the pattern here.
+- Inside the `routes/` folder, create an `invoice.route.js` file and write the code below:
+  
+```js
+const express = require('express');
+const router = express.Router();
+
+const {
+  showInvoices,
+} = require('../controllers/invoice.controller');
+
+router.get('/', showInvoices);
+
+module.exports = router;
+```
+
+- Then, import route in `dashboard.route.js`:
+
+```js
+const invoicesRouter = require('./invoice.route');
+
+// ...
+
+router.use('/invoices', invoicesRouter);
+```
+
+- Now you can already visit the `/dashboard/invoices` URL from the browser, but there’s only an empty table there.
+
+### Create New Invoices
+
+- Next, go back to the `invoice.controller.js` and add the `createInvoice()` function:
+
+```js
+const createInvoice = async (req, res) => {
+ const validationErrors = validationResult(req);
+ if (!validationErrors.isEmpty()) {
+  const errors = validationErrors.array();
+  req.flash("errors", errors);
+  req.flash("data", req.body);
+  return res.redirect("create");
+ }
+
+ const newInvoice = req.body;
+ newInvoice.owner = req.session.userId;
+
+ await Invoice.create(newInvoice);
+ req.flash("info", {
+  message: "New Invoice Created",
+  type: "success",
+ });
+ res.redirect("/dashboard/invoices");
+};
+```
+
+- Oh and since we need to get the `customer` data for the `invoice` form, let’s create another function to get the customer data named `getCustomers()`:
+  
+```js
+const getCustomers = async (req, res, next) => {
+ const customerQuery = { owner: req.session.userId };
+ const customers = await Customer.find(customerQuery);
+ req.customers = customers;
+ next();
+};
+```
+
+- The customers data is attached to the `req.customers` property, so the next middleware can access the data there.
+- Export the functions from the file as:
+
+```js
+ module.exports = {
+  showInvoices,
+  createInvoice,
+  getCustomers,
+  validateInvoice
+ };
+```
+
+- And add the routes for creating new invoices in `invoice.route.js` as:
+
+```js
+const {
+ showInvoices,
+ createInvoice,
+ getCustomers,
+ validateInvoice,
+} = require("../controllers/invoice.controller");
+
+router.get("/create", getCustomers, (req, res) => {
+ const { customers } = req;
+ res.render("pages/invoices", {
+  title: "Create Invoice",
+  formAction: "create",
+  type: "form",
+  customers,
+  invoice: req.flash("data")[0],
+  errors: req.flash("errors"),
+ });
+});
+
+router.post("/create", validateInvoice, createInvoice);
+```
+
+- Notice that the `getCustomers()` function are called on the `GET` route.
+- This is so that we can use the data when rendering the form.
+
+### Updating Invoices
+
+- The next step is to enable updating invoices.
+- Back on the `invoice.controller.js` again, write the `editInvoice()` function:
+
+```js
+const editInvoice = async (req, res) => {
+ const invoiceId = req.params.id;
+ const invoice = await populateInvoices(Invoice.findById(invoiceId));
+ const { customers } = req;
+
+ res.render("pages/invoices", {
+  title: "Edit Invoice",
+  type: "form",
+  formAction: "edit",
+  customers,
+  invoice: req.flash("data")[0] || invoice,
+  errors: req.flash("errors"),
+ });
+};
+```
+
+- This will `populate` the existing invoice data on the form.
+- Next, create the `updateInvoice()` function as:
+  
+```js
+const updateInvoice = async (req, res) => {
+ const validationErrors = validationResult(req);
+ if (!validationErrors.isEmpty()) {
+  const errors = validationErrors.array();
+  req.flash("errors", errors);
+  req.flash("data", req.body);
+  return res.redirect("edit");
+ }
+
+ const invoiceId = req.params.id;
+ const data = req.body;
+
+ await Invoice.findByIdAndUpdate(invoiceId, data);
+ req.flash("info", {
+  message: "Invoice Updated",
+  type: "sucess",
+ });
+ res.redirect("/dashboard/invoices");
+};
+```
+
+- Don’t forget to update the `exports` too:
+  
+```js
+module.exports = {
+ showInvoices,
+ editInvoice,
+ updateInvoice,
+ createInvoice,
+ getCustomers,
+ validateInvoice,
+};
+```
+
+- Next, create the routes for updating the invoice in `invoice.route.js` as:
+  
+```js
+ const {
+  showInvoices,
+  createInvoice,
+  editInvoice,
+  updateInvoice,
+  getCustomers,
+  validateInvoice
+} = require('../controllers/invoice.controller');
+
+router.get('/:id/edit', getCustomers, editInvoice);
+
+router.post('/:id/edit', validateInvoice, updateInvoice);
+```
+
+- And done! Now you can update existing invoices.
+
+### Delete Invoices
+
+- The last step is to enable the delete invoice function.
+- Again, back to the controller `invoice.controller.js` file:
+
+```js
+const deleteInvoice = async (req, res) => {
+ const invoiceId = req.params.id;
+
+ await Invoice.findByIdAndDelete(invoiceId);
+ req.flash("info", {
+  message: "Invoice Deleted",
+  type: "success",
+ });
+ res.redirect("/dashboard/invoices");
+};
+
+module.exports = {
+ showInvoices,
+ editInvoice,
+ deleteInvoice,
+ updateInvoice,
+ createInvoice,
+ getCustomers,
+ validateInvoice,
+};
+```
+
+- Then create the route:
+  
+```js
+const {
+  showInvoices,
+  editInvoice,
+  createInvoice,
+  updateInvoice,
+  deleteInvoice,
+  getCustomers,
+  validateInvoice
+} = require('../controllers/invoice.controller');
+
+//...
+
+router.post('/:id/delete', deleteInvoice);
+```
+
+- And that’s it. Now you can manipulate the invoice data as required.
+
+### Delete All Invoices When a Customer is Deleted
+
+- Since the invoices are connected to a single customer,let’s delete all invoices for the same customer.
+- Open your `customer.controller.js` file, import the invoice model, and update the `deleteCustomer()` function:
+
+```js
+const Invoice = require("../libs/models/invoice.model");
+
+// ...
+
+const deleteCustomer = async (req, res) => {
+ const customerId = req.params.id;
+
+ // delete invoices by that customer
+ await Invoice.deleteMany({ customer: customerId });
+ await Customer.findByIdAndDelete(customerId);
+ req.flash("info", {
+  message: "Customer Deleted",
+  type: "success",
+ });
+ res.redirect("/dashboard/customers");
+};
+```
+
+- This way, the `customer` and `invoice` data will always be up to date.
+
+## USING CHART.JS ON THE DASHBOARD
+
+- Right now, our `dashboard` is still empty, so let’s fill it with `customer` and `invoice` data to show some insights.
+- We will also use `Chart.js` to _draw_ a chart on the `dashboard` showing the `revenue` in the _last 6 months_.
+
+### Formatting the Currency
+
+- Before we code the dashboard page, let’s fix a little issue from the previous chapter.
+- When you open the `invoices` page, notice that the invoice `amount` is shown as nothing with any currency sign like just bare numbers:
+- To make it more pleasing, let’s format the amount in `INR` means `Indian National Rupee` instead of just bare numbers.
+- In the `libs/` folder, create a new file named `formatter.js` and add the code below:
+
+```js
+const INRupee = new Intl.NumberFormat("en-IN", {
+ style: "currency",
+ currency: "INR",
+});
+
+module.exports = {
+ INRupee,
+};
+```
+
+- The code above creates a new international number format object that can be used to format numbers.
+- Now in the `invoice.controller.js` file, import the object and pass it to the `res.render()` method that renders the invoice table:
+
+```js
+const { INRupee } = require("../libs/formatter");
+
+// ...
+
+const showInvoices = async (req, res) => {
+ const query = { owner: req.session.userId };
+ const { search } = req.query;
+
+ const invoices = await populateInvoices(Invoice.find(query), search);
+ res.render("pages/invoices", {
+  title: "Invoices",
+  type: "data",
+  invoices,
+  INRupee, // <<<< Indian National Rupee
+  info: req.flash("info")[0],
+ });
+};
+```
+
+- After passing the object, you can use it in the `invoiceData.ejs` file as follows:
+
+```html
+<td> <%= INRupee.format(invoice.amount) %> </td>
+```
+
+- Now if you open the invoices page, you see the number formatted as 💲300.00.
+- Looks nice!
+
+### Creating the Dashboard Controller
+
+- The dashboard page of the application will show several important insights to the user.
+- First, there are `4` boxes showing the `total sum` of `invoices` that have been `paid`, are still `pending`, `total invoices` created, and `total customers`:
+- Because the dashboard doesn’t create new data, we don’t need a model.
+- In the `controllers/` folder, create a new file named `dashboard.controller.js` and write the code below:
+
+```js
+const Custoemer = require("../libs/models/customer.model");
+const Invoice = require("../libs/models/invoice.model");
+
+const { INRupee } = require("../libs/formatter");
+
+const showDashboard = async (req,res) => {
+  // ...
+}
+
+module.exports = {
+  showDashboard,
+}
+```
+
+- The `showDashboard()` function needs to get the data required by the dashboard page.
+- Inside the function, get the total count of the customers and invoices using the `countDocument()` method first as:
+
+```js
+const query = { owner: req.session.userId };
+
+// getting counts of invoices and customers of the user(owner)
+const invoiceCount = await Invoice.countDocuments(query);
+const customerCount = await Customer.countDocuments(query);
+```
+
+- Next, you need to get all invoices created by the user, then pull the customer name using `populate()` like this:
+
+```js
+// getting all invoices data
+ const allInvoices = await Invoice.find(query).populate({
+  path: "customer",
+  model: Customer,
+  select: "_id name", // getting `_id` and `name` of customer
+});
+```
+
+- The above code will fetch all invoice data.
+- You can then use the `reduce()` JavaScript function to get the total amount of `paid` and `pending` invoices:
+  
+```js
+// getting total paid amount
+const totalPaid = allInvoices.reduce((sum, invoice) => {
+  return invoice.status === "paid" ? sum + invoice.amount : sum;
+}, 0);
+
+const totalPending = allInvoices.reduce((sum, invoice) => {
+  return invoice.status === "pending" ? sum + invoice.amount : sum;
+}, 0);
+```
+
+- Now call the `res.render()` method in the `dashboard.controller.js` file to render the view:
+
+```js
+// rendering the view
+res.render("pages/dashboard", {
+  title: "Dashboard",
+  invoiceCount,
+  customerCount,
+  totalPaid,
+  totalPending,
+  INRupee,
+  info: req.flash("info")[0],
+});
+```
+
+### Updating the Dashboard View
+
+- With the controller completed, it’s time to add the 4 boxes to the view template.
+- Update the `pages/dashboard.ejs` template as shown below:
+
+```html
+ <!DOCTYPE html>
+ <html lang="en">
+ <%- include('../partials/head') %>
+ <body class="bg-gray-100">
+  <div class="flex h-screen overflow-hidden">
+    <%- include('../partials/navbar') %>
+    <div class="ml-56 flex-grow p-10 overflow-y-auto">
+      <h1 class=" mb-4 text-2xl"><%= title %></h1>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="rounded-xl bg-white p-2 shadow-sm">
+          <div class="flex p-4">
+           <i aria-hidden="true" class="fa-solid fa-money-bills"></i>
+            <h3 class="ml-2 text-sm font-medium">Collected</h3>
+          </div>
+          <p class=" truncate rounded-xl border-slate-200 border px-4 py-8 text-center text-2xl">
+            <%= INRupee.format(totalPaid) %>
+          </p>
+        </div>
+        <div class="rounded-xl bg-white p-2 shadow-sm">
+          <div class="flex p-4">
+            <i aria-hidden="true" class="fa-regular fa-clock"></i>
+            <h3 class="ml-2 text-sm font-medium">Pending</h3>
+          </div>
+          <p class=" truncate rounded-xl border-slate-200 border px-4 py-8 text-center text-2xl">
+            <%= INRupee.format(totalPending) %>
+          </p>
+        </div>
+        <div class="rounded-xl bg-white p-2 shadow-sm">
+          <div class="flex p-4">
+            <i aria-hidden="true" class="fa-regular fa-folder-open"></i>
+            <h3 class="ml-2 text-sm font-medium">Total Invoices</h3>
+          </div>
+          <p class=" truncate rounded-xl border-slate-200 border px-4 py-8 text-center text-2xl">
+            <%= invoiceCount %>
+          </p>
+        </div>
+        <div class="rounded-xl bg-white p-2 shadow-sm">
+          <div class="flex p-4">
+            <i aria-hidden="true" class="fa-solid fa-users"></i>
+            <h3 class="ml-2 text-sm font-medium">Total Customers</h3>
+          </div>
+          <p class=" truncate rounded-xl border-slate-200 border px-4 py-8 text-center text-2xl">
+            <%= customerCount %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include('../partials/script') %>
+ </body>
+ </html>
+```
+
+- The code above uses CSS grid to make the layout of the 4 boxes responsive.
+- Now if you open the dashboard page, you will see the insights shown.
+
+### Showing the Revenue Chart
+
+- Below the 4 boxes, we’re going to add a revenue chart that shows the revenue for the last 6 months.
+- We’re going to use `Chart.js` to do this, and if you never use `Chart.js` before, don’t worry because it’s quite simple to use.
+- Basically, `Chart.js` allows you to create a chart on top of the HTML `<canvas>` element by calling a function and specifying the options for the chart.
+- Back in the `dashboard.ejs` file, you can create an empty `<canvas>` element below the `<div>` with grid class as follows:
+
+```html
+<!-- <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"> -->
+<div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
+  <div class="w-full md:col-span-4">
+    <h2 class=" mb-4 text-2xl">
+      Recent Revenue
+    </h2>
+    <div class="rounded-xl bg-white p-4">
+      <canvas id="revenueChart" width="600" height="400"></canvas>
+      <div class="flex items-center pb-2 pt-6">
+        <i aria-hidden="true" class="fa-regular fa-calendar fa-lg"></i>
+        <h3 class="ml-2 text-sm text-slate-1000">Last 6 months</h3>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+- Now we can render the chart on the `revenueChart` canvas.
+- At the bottom of the file, add a link to fetch `Chart.js` code, then create a new chart instance by calling the new `Chart()` function:
+
+```html
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <script>
+  const canvas = document.getElementById('revenueChart');
+  Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: 'Revenue',
+        data: [100, 200, 300, 400, 500, 600],
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script
+```
+
+- When you call the `new Chart()` function, pass the `canvas` as the first argument, and the chart `options` as the `second` argument.
+- Here, we pass the `type` of the chart we want to render, which is the `bar chart`.
+- The `data` object allows you to specify the data to use in the `chart`.
+- The `labels` here will label each bar generated.
+- The `datasets` property contains various options, but the most important one is the `data array`, which is the value represented by the chart.
+- The above script will generate the chart.
+
+- To make the chart represent our invoice data, we only need to adjust the `labels` and `data array`.
+- Back in the `invoice.controller.js` file, update the `showDashboard()` function with the following code:
+
+```js
+const revenueData = [];
+
+// for last 6 months
+for (let i = 0; i < 6; i++) {
+  const today = new Date();
+  today.setMonth(today.getMonth() - i);
+  const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+  const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  const month = today.toLocaleString("default", { month: "short" });
+
+  const revenueForMonth = allInvoices
+    .filter((invoice) => {
+      return (
+        new Date(invoice.date) >= firstDay &&
+        new Date(invoice.date) <= lastDay
+      );
+    })
+    .reduce((total, invoice) => total + invoice.amount, 0);
+
+  revenueData.unshift({ month, revenue: revenueForMonth });
+}
+```
+
+- The code looks a bit complicated, but the main point is that the for loop will run 6 times, and in each loop, we get the `revenue` data for a month.
+- The loop begins in the current month, and then moves backward for the last 6 months.
+- As a result, the `revenueData` variable becomes an array of objects that contain the `name` of the `month` and the `revenue` for that month like this:
+  
+```js
+[
+  { month: 'Nov', revenue: 300 },
+  { month: 'Dec', revenue: 100 },
+  { month: 'Jan', revenue: 0 },
+  { month: 'Feb', revenue: 400 },
+  { month: 'Mar', revenue: 50 },
+  { month: 'Apr', revenue: 350 }
+]
+```
+
+- Next, pass the `revenueData` to the `dashboard` page as a `JSON string` in `res.render()` in `dashboard.controller.js` file:
+
+```js
+res.render('pages/dashboard', {
+  title: 'Dashboard',
+  revenueData: JSON.stringify(revenueData),
+  // ...
+ });
+```
+
+- Now you can use the `revenueData` variable on the `<script>` tag for rendering the chart:
+
+```html
+<script>
+    const revenueData = JSON.parse('<%- revenueData %>');
+    const canvas = document.getElementById('revenueChart');
+    new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels: revenueData.map(item => item.month),
+        datasets: [{
+          label: 'Revenue',
+          data: revenueData.map(item => item.revenue),
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      // options ...
+    });
+</script>
+```
+
+- The `revenueData` is parsed using the `JSON.parse()` method, then the values are passed to the `labels` and `data` options using the array `map()` method.
+- Now if you `refresh` the dashboard page, your invoice data will be reflected on the chart:
+
+### Showing Five Latest Invoices
+
+- The last part of the dashboard page will show the customer `name`, `amount`, and `status` of `5 latest invoices`.
+- In the dashboard controller, you need to `sort` the `allInvoices` data in `descending order`, then `slice` the **first 5 elements** of the array as follows in the `dashboard.controller.js` in `showDashboard()`function:
+
+```js
+// sort in descending order
+allInvoices.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+const latestInvoices = allInvoices.slice(0, 5);
+```
+
+- Now pass the `latestInvoices` data to the `view`:
+  
+```js
+res.render('pages/dashboard', {
+  title: 'Dashboard',
+  latestInvoices,
+  // ...
+});
+```
+
+- And update the `view` template from `dashboard.ejs` to render the invoices as shown below:
+
+```html
+ <!-- <div class="w-full md:col-span-4"> -->
+ <div class="flex w-full flex-col md:col-span-4">
+  <h2 class=" mb-4 text-2xl">
+    Latest Invoices
+  </h2>
+  <div class="flex grow flex-col justify-between rounded-xl bg-white p-4">
+    <div class="border-slate-200 border px-6">
+      <% latestInvoices.forEach(invoice => { %>
+      <div class="flex flex-row items-center justify-between py-4">
+        <div class="flex items-center">
+          <p class="truncate font-semibold text-base">
+            <%= invoice.customer.name %>
+          </p>
+          <p class="hidden text-sm text-slate-1000 sm:block">
+            <% if(invoice.status === 'paid') { %>
+            <span class="ml-2 badge badge-sm badge-success p-3 gap-3 text-white">
+              Paid <i class="fa-regular fa-circle-check"></i>
+            </span>
+            <% } else { %>
+            <span class="ml-2 badge badge-sm badge-ghost p-3 gap-3">
+              Pending <i class="fa-regular fa-clock"></i>
+            </span>
+            <% } %>
+          </p>
+        </div>
+        <p class=" truncate font-medium">
+         <%= INRupee.format(invoice.amount) %>
+        </p>
+      </div>
+      <% }) %>
+    </div>
+    <div class="flex items-center pb-2 pt-6">
+      <i aria-hidden="true" class="fa-regular fa-note-sticky fa-lg"></i>
+      <h3 class="ml-2 text-sm text-slate-1000">Last 5 invoices</h3>
+    </div>
+  </div>
+ </div>
+```
+
+- And that’s it.
+- Now you should be able to see the last 5 invoices as shown below:
+- And that’s it. Now you should be able to see the last 5 invoices as shown below:
+
+## ADDING THE SEARCH FEATURE
+
+- With the dashboard page done, the last feature to develop is the `search feature` on the `customer` and `invoice` pages.
+- If you type something into the `search bar` and then press Enter, you will see that the input value is already added to the `URL` query parameter under the `?search` parameter:
+- This means that the view is already reacting to the user action.
+- You only need to update the `controller` to take into account the search value and filter the returned results.
+
+### Adding Customer Search
+
+- Let’s do the customer search first.
+- In the `showCustomers()` function, get the `search` query parameter from the `req.query` object as follows:
+
+```js
+const query = { owner: req.session.userId };
+
+const { search } = req.query;
+if (search) {
+  query["$or"] = [
+   { name: { $regex: search, $options: "i" } },
+   {
+    email: { $regex: search, options: "i" },
+   },
+   {
+    phone: { $regex: search, options: "i" },
+   },
+   {
+    address: { $regex: search, options: "i" },
+   },
+  ];
+ }
+```
+
+- When the `search` variable is defined, we add the `$or` operator so that `Mongoose` will `search` for any matching value in the `name`, `email`, `phone`, and `address` fields.
+- The rest of the code stays the same, so if you do a search now, you will see only matching customer data on the table.
+
+### Adding Invoice Search
+
+- The next step is to add a `search` function to the `invoice`.
+- We need to make the invoice searchable using the customer’s name.
+- In the `showInvoices()` function from `invoices.controller.js` file, `unpack` the search value from `req.query` object, then pass it to the `populateInvoices()` function as follows:
+
+```js
+const { search } = req.query;
+
+const invoices = await populateInvoices(Invoice.find(query), search);
+```
+
+- The next step is to update the `populateInvoices()` function. You need to add the match option when the `search` argument is defined.
+- To make this possible, separate the options passed to the populate option as a variable, then modify the populate option only when `search` is defined:
+
+```js
+const populateInvoices = (query, search) => {
+  const populateOptions = {
+    path: 'customer',
+    model: Customer,
+    select: '_id name',
+  };
+  if (search) {
+    populateOptions['match'] = { name: { $regex: search, $options: 'i' } };
+  }
+ };
+```
+
+- The customer property will be `null` when the customer data doesn’t match the `search` value, so you need to filter the invoice data and remove all invoices that have the customer value of `null`.
+- This can be done on the `return` statement, where you can chain the `populate()` method call with a `then()` as follows:
+
+```js
+return query
+ .populate(populateOptions)
+ .then(invoices => invoices.filter(invoices => invoices.customer != null));
+```
+
+- Alright, now the invoices can be filtered by the `customer-name` field.

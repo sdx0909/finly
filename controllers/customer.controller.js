@@ -2,6 +2,7 @@ const Customer = require("../libs/models/customer.model");
 const Invoice = require("../libs/models/invoice.model");
 
 const { body, validationResult } = require("express-validator");
+const { options } = require("../routes/customer.route");
 
 const validateCustomer = [
 	body("name", "Name must not be empty").notEmpty(),
@@ -14,6 +15,21 @@ const showCustomers = async (req, res) => {
 	const query = { owner: req.session.userId };
 	const customers = await Customer.find(query);
 
+	const { search } = req.query;
+	if (search) {
+		query["$or"] = [
+			{ name: { $regex: search, $options: "i" } },
+			{
+				email: { $regex: search, options: "i" },
+			},
+			{
+				phone: { $regex: search, options: "i" },
+			},
+			{
+				address: { $regex: search, options: "i" },
+			},
+		];
+	}
 	res.render("pages/customers", {
 		title: "Customers",
 		type: "data",

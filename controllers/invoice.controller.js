@@ -1,5 +1,6 @@
 const Customer = require("../libs/models/customer.model");
 const Invoice = require("../libs/models/invoice.model");
+const { INRupee } = require("../libs/formatter");
 
 const { body, validationResult } = require("express-validator");
 
@@ -10,23 +11,33 @@ const validateInvoice = [
 	body("status", "Select the Status").notEmpty(),
 ];
 
-const populateInvoices = (query) => {
-	return query.populate({
+const populateInvoices = (query, search) => {
+	const populateOptions = {
 		path: "customer",
 		model: "Customer",
 		select: "_id name",
-	});
+	};
+	if (search) {
+		populateOptions["match"] = { name: { $regex: search, $options: "i" } };
+	}
+	return query
+		.populate(populateOptions)
+		.then((invoices) =>
+			invoices.filter((invoices) => invoices.customer != null)
+		);
 };
 
 const showInvoices = async (req, res) => {
 	const query = { owner: req.session.userId };
+	const { search } = req.query;
 
 	// const invoices = await Invoice.find(query);
-	const invoices = await populateInvoices(Invoice.find(query));
+	const invoices = await populateInvoices(Invoice.find(query), search);
 	res.render("pages/invoices", {
 		title: "Invoices",
 		type: "data",
 		invoices,
+		INRupee, // <<<< Indian National Rupee
 		info: req.flash("info")[0],
 	});
 };
